@@ -12,6 +12,8 @@ import MapKit
 class LocationSearchTable: UITableViewController, UISearchResultsUpdating {
     
  
+   
+    
     weak var handleMapSearchDelegate: HandleMapSearch?
     var matchingItems: [MKMapItem] = []
     var mapView: MKMapView?

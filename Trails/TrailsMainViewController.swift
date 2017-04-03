@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 
 protocol HandleMapSearch: class {
+    
     func dropPinZoomIn(_ placemark: MKPlacemark)
 }
 
@@ -26,6 +27,7 @@ class TrailsMainViewController: UIViewController{
     let locationMananger = CLLocationManager()
     
     
+    
     @IBAction func profileButtonTapped(_ sender: Any) {
         
         if menuIsShowing {
@@ -39,6 +41,19 @@ class TrailsMainViewController: UIViewController{
         }
         menuIsShowing = !menuIsShowing
     }
+    //MARK: -  view load out
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        mapView()
+        sideMenu()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        addBottomSheetView()
+    }
     
     //MARK: - animation
     func menuAnimation() {
@@ -46,44 +61,50 @@ class TrailsMainViewController: UIViewController{
             self.view.layoutIfNeeded()
         }
     }
+   
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //mapView()
-        sideMenu()
-        locationMananger.delegate = self
-        locationMananger.desiredAccuracy = kCLLocationAccuracyBest
-        locationMananger.requestWhenInUseAuthorization()
-        locationMananger.requestLocation()
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as!LocationSearchTable
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController?.searchResultsUpdater = locationSearchTable
+    
+    func addBottomSheetView() {
+        let bottomSheetVC = BottomSheetViewController()
+        self.addChildViewController(bottomSheetVC)
+        self.view.addSubview(bottomSheetVC.view)
+        bottomSheetVC.didMove(toParentViewController: self)
         
-        let searchBar = resultSearchController?.searchBar
-        searchBar?.sizeToFit()
-        searchBar?.placeholder = "Search for places"
-        //searchBar?.resignFirstResponder()
-        navigationItem.titleView = resultSearchController?.searchBar
+        let height = view.frame.height
+        let width = view.frame.width
         
-        
-        resultSearchController?.hidesNavigationBarDuringPresentation = false
-        resultSearchController?.dimsBackgroundDuringPresentation = true
-        definesPresentationContext = true
-        locationSearchTable.mapView = mainMapView
-        locationSearchTable.handleMapSearchDelegate = self
-        
+        bottomSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
-    //func mapView() {
-        
-        
-   // }
+    func mapView() {
+    locationMananger.delegate = self
+    locationMananger.desiredAccuracy = kCLLocationAccuracyBest
+    locationMananger.requestWhenInUseAuthorization()
+    locationMananger.requestLocation()
+    let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as!LocationSearchTable
+    resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+    resultSearchController?.searchResultsUpdater = locationSearchTable
+    
+    let searchBar = resultSearchController?.searchBar
+    searchBar?.sizeToFit()
+    searchBar?.placeholder = "Search for places"
+    navigationItem.titleView = resultSearchController?.searchBar
+    
+    
+    resultSearchController?.hidesNavigationBarDuringPresentation = false
+    resultSearchController?.dimsBackgroundDuringPresentation = true
+    definesPresentationContext = true
+    locationSearchTable.mapView = mainMapView
+    locationSearchTable.handleMapSearchDelegate = self
+
+    
+    }
     func sideMenu(){
         
         profileMenuSideConstraint.constant = -250
         profileMenuView.layer.opacity = 0.9
-        profileMenuView.layer.shadowOpacity = 0.5
-        profileMenuView.layer.shadowRadius = 6
+        profileMenuView.layer.shadowOpacity = 0.2
+        profileMenuView.layer.shadowRadius = 3
     }
     func getDirections() {
         guard let selectedPin = selectedPin else { return }

@@ -17,6 +17,7 @@
 		5A5D09B31E80E6EE00DC695F /* trailsLaunchScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A5D09B21E80E6EE00DC695F /* trailsLaunchScreen.png */; };
 		5A5D09B51E80E7AF00DC695F /* trailsIcon in Resources */ = {isa = PBXBuildFile; fileRef = 5A5D09B41E80E7AF00DC695F /* trailsIcon */; };
 		5A92E3EA1E8318D8001341A5 /* LocationSearchTableSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A92E3E91E8318D8001341A5 /* LocationSearchTableSwift.swift */; };
+		5AAB2B3E1E92E05500C20044 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAB2B3D1E92E05500C20044 /* BottomSheetViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		5A5D09B21E80E6EE00DC695F /* trailsLaunchScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trailsLaunchScreen.png; sourceTree = "<group>"; };
 		5A5D09B41E80E7AF00DC695F /* trailsIcon */ = {isa = PBXFileReference; lastKnownFileType = folder; path = trailsIcon; sourceTree = "<group>"; };
 		5A92E3E91E8318D8001341A5 /* LocationSearchTableSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableSwift.swift; sourceTree = "<group>"; };
+		5AAB2B3D1E92E05500C20044 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				5A5D09AE1E80D46400DC695F /* TrailsMainViewController.swift */,
+				5AAB2B3D1E92E05500C20044 /* BottomSheetViewController.swift */,
 				5A92E3E91E8318D8001341A5 /* LocationSearchTableSwift.swift */,
 			);
 			name = ViewController;
@@ -212,6 +215,7 @@
 				5A5D09AF1E80D46400DC695F /* TrailsMainViewController.swift in Sources */,
 				5A5D09931E80BDB600DC695F /* AppDelegate.swift in Sources */,
 				5A92E3EA1E8318D8001341A5 /* LocationSearchTableSwift.swift in Sources */,
+				5AAB2B3E1E92E05500C20044 /* BottomSheetViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
