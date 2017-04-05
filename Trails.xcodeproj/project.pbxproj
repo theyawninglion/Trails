@@ -18,6 +18,7 @@
 		5A5D09B51E80E7AF00DC695F /* trailsIcon in Resources */ = {isa = PBXBuildFile; fileRef = 5A5D09B41E80E7AF00DC695F /* trailsIcon */; };
 		5A92E3EA1E8318D8001341A5 /* LocationSearchTableSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A92E3E91E8318D8001341A5 /* LocationSearchTableSwift.swift */; };
 		5AAB2B3E1E92E05500C20044 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAB2B3D1E92E05500C20044 /* BottomSheetViewController.swift */; };
+		5AAB2B641E9349EE00C20044 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAB2B631E9349EE00C20044 /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		5A5D09B41E80E7AF00DC695F /* trailsIcon */ = {isa = PBXFileReference; lastKnownFileType = folder; path = trailsIcon; sourceTree = "<group>"; };
 		5A92E3E91E8318D8001341A5 /* LocationSearchTableSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTableSwift.swift; sourceTree = "<group>"; };
 		5AAB2B3D1E92E05500C20044 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		5AAB2B631E9349EE00C20044 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,8 @@
 		5A5D09911E80BDB600DC695F /* Trails */ = {
 			isa = PBXGroup;
 			children = (
+				5AAB2B661E934A0200C20044 /* ModelController */,
+				5AAB2B651E9349F300C20044 /* Model */,
 				5A5D09B61E81B0CA00DC695F /* Views */,
 				5A5D09AD1E80D40100DC695F /* ViewController */,
 				5A5D09A61E80BDF000DC695F /* Controllers */,
@@ -80,6 +84,7 @@
 		5A5D09A41E80BDC400DC695F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A5D09921E80BDB600DC695F /* AppDelegate.swift */,
 				5A5D099E1E80BDB600DC695F /* Info.plist */,
 				5A5D09991E80BDB600DC695F /* Assets.xcassets */,
 				5A5D09B41E80E7AF00DC695F /* trailsIcon */,
@@ -101,7 +106,6 @@
 		5A5D09A61E80BDF000DC695F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5A5D09921E80BDB600DC695F /* AppDelegate.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -129,6 +133,21 @@
 			children = (
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		5AAB2B651E9349F300C20044 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5AAB2B631E9349EE00C20044 /* Event.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		5AAB2B661E934A0200C20044 /* ModelController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ModelController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,6 +235,7 @@
 				5A5D09931E80BDB600DC695F /* AppDelegate.swift in Sources */,
 				5A92E3EA1E8318D8001341A5 /* LocationSearchTableSwift.swift in Sources */,
 				5AAB2B3E1E92E05500C20044 /* BottomSheetViewController.swift in Sources */,
+				5AAB2B641E9349EE00C20044 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

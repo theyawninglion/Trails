@@ -9,22 +9,24 @@
 import UIKit
 import MapKit
 
-protocol HandleMapSearch: class {
-    
-    func dropPinZoomIn(_ placemark: MKPlacemark)
-}
+//MARK: -  protocol
+
+protocol HandleMapSearch: class { func dropPinZoomIn(_ placemark: MKPlacemark) }
 
 class TrailsMainViewController: UIViewController{
     
-    
-    @IBOutlet weak var mainMapView: MKMapView!
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var profileMenuSideConstraint: NSLayoutConstraint!
     @IBOutlet weak var profileMenuView: UIView!
     
+    static let shared = TrailsMainViewController()
+    
+    //MARK: - search controller properties
     var selectedPin:MKPlacemark? = nil
-    var resultSearchController: UISearchController? = nil
-    var menuIsShowing = false
     let locationMananger = CLLocationManager()
+    
+
+    var menuIsShowing = false
     
     
     
@@ -45,15 +47,12 @@ class TrailsMainViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView()
-        sideMenu()
         
+        setupLocationManager()
+        sideMenu()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        addBottomSheetView()
-    }
+    
     
     //MARK: - animation
     func menuAnimation() {
@@ -61,45 +60,38 @@ class TrailsMainViewController: UIViewController{
             self.view.layoutIfNeeded()
         }
     }
-   
     
+    //MARK: - bottom sheet view
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        addBottomSheetView()
+        
+    }
     
     func addBottomSheetView() {
         let bottomSheetVC = BottomSheetViewController()
+        bottomSheetVC.loadView()
+        bottomSheetVC.viewDidLoad()
         self.addChildViewController(bottomSheetVC)
-        self.view.addSubview(bottomSheetVC.view)
+        mapView.addSubview(bottomSheetVC.view)
         bottomSheetVC.didMove(toParentViewController: self)
         
         let height = view.frame.height
         let width = view.frame.width
-        
         bottomSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
-    func mapView() {
-    locationMananger.delegate = self
-    locationMananger.desiredAccuracy = kCLLocationAccuracyBest
-    locationMananger.requestWhenInUseAuthorization()
-    locationMananger.requestLocation()
-    let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as!LocationSearchTable
-    resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-    resultSearchController?.searchResultsUpdater = locationSearchTable
-    
-    let searchBar = resultSearchController?.searchBar
-    searchBar?.sizeToFit()
-    searchBar?.placeholder = "Search for places"
-    navigationItem.titleView = resultSearchController?.searchBar
-    
-    
-    resultSearchController?.hidesNavigationBarDuringPresentation = false
-    resultSearchController?.dimsBackgroundDuringPresentation = true
-    definesPresentationContext = true
-    locationSearchTable.mapView = mainMapView
-    locationSearchTable.handleMapSearchDelegate = self
-
-    
+    //MARK: - searchBarMapDisplay
+    func setupLocationManager() {
+        locationMananger.delegate = self
+        locationMananger.desiredAccuracy = kCLLocationAccuracyBest
+        locationMananger.requestWhenInUseAuthorization()
+        locationMananger.requestLocation()
     }
-    func sideMenu(){
+
+    func sideMenu() {
         
         profileMenuSideConstraint.constant = -250
         profileMenuView.layer.opacity = 0.9
@@ -108,24 +100,27 @@ class TrailsMainViewController: UIViewController{
     }
     func getDirections() {
         guard let selectedPin = selectedPin else { return }
-            let mapItem = MKMapItem(placemark: selectedPin)
-            let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
-            mapItem.openInMaps(launchOptions: launchOptions)
-        }
+        let mapItem = MKMapItem(placemark: selectedPin)
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
+        mapItem.openInMaps(launchOptions: launchOptions)
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    //MARK: - searchBar
+}
+
+/*
+ // MARK: - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ // Get the new view controller using segue.destinationViewController.
+ // Pass the selected object to the new view controller.
+ }
+ */
+
 
 //MARK: - extention for CLLocationManager
+
 extension TrailsMainViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -137,7 +132,7 @@ extension TrailsMainViewController: CLLocationManagerDelegate {
         if let location = locations.first {
             let span = MKCoordinateSpanMake(0.095, 0.095)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
-            mainMapView.setRegion(region, animated: true)
+            mapView.setRegion(region, animated: true)
             
         }
     }
@@ -149,17 +144,17 @@ extension TrailsMainViewController: CLLocationManagerDelegate {
 extension TrailsMainViewController: HandleMapSearch {
     func dropPinZoomIn(_ placemark: MKPlacemark) {
         selectedPin = placemark
-        mainMapView.removeAnnotations(mainMapView.annotations)
+        mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
         if let city = placemark.locality, let state = placemark.administrativeArea {
             annotation.subtitle = "\(city) \(state)"
         }
-        mainMapView.addAnnotation(annotation)
+       mapView.addAnnotation(annotation)
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
-        mainMapView.setRegion(region, animated: true)
+        mapView.setRegion(region, animated: true)
     }
 }
 extension TrailsMainViewController: MKMapViewDelegate {
@@ -168,16 +163,19 @@ extension TrailsMainViewController: MKMapViewDelegate {
             return nil
         }
         let reuseID = "pin"
-        var pinView = mainMapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
-        pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+        }
         pinView?.pinTintColor = .orange
         pinView?.canShowCallout  = true
         let smallSquare = CGSize(width: 30, height: 30)
-        let CGPointZero = CGPoint(x: 0, y: 0)
-        let button = UIButton(frame: CGRect(origin: CGPointZero, size: smallSquare))
+        
+        let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
         button.setBackgroundImage(UIImage(named: "car"), for: .normal)
         button.addTarget(self, action: #selector(TrailsMainViewController.getDirections), for: .touchUpInside)
         pinView?.leftCalloutAccessoryView = button
+        
         return pinView
     }
 }
