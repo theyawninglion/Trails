@@ -71,7 +71,8 @@ class TrailsMainViewController: UIViewController{
     }
     
     func addBottomSheetView() {
-        let bottomSheetVC = BottomSheetViewController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let bottomSheetVC = storyboard.instantiateViewController(withIdentifier: "BottomSheetViewController")
         bottomSheetVC.loadView()
         bottomSheetVC.viewDidLoad()
         self.addChildViewController(bottomSheetVC)

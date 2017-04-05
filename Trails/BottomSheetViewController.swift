@@ -9,19 +9,22 @@
 import UIKit
 import MapKit
 
-class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate {
+class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     static let shared = BottomSheetViewController()
     
+    @IBOutlet weak var tableView: UITableView!
     //MARK: - locationSearch properties
     var resultSearchController = UISearchController(searchResultsController: nil)
     
     
     //MARK: - bottomsheet properties
+    
     let fullView: CGFloat = 100
     var partialView: CGFloat {
         return UIScreen.main.bounds.height - 108
     }
+
     
     //MARK: - view
     
@@ -32,9 +35,9 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate {
         view.addGestureRecognizer(gesture)
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
-        
+
         searchBarView()
-//        setupTableView()
+        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,7 +91,7 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate {
                 }
             }, completion: { [weak self] _ in
                 if velocity.y < 0 {
-                    //                    self?.tableView.isScrollEnabled = true
+                    self?.tableView.isScrollEnabled = true
                 }
                 
                 
@@ -103,48 +106,40 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate {
         let direction = gesture.velocity(in: view).y
         
         let y = view.frame.minY
-        //        if (y == fullView && tableView.contentOffset.y == 0 && direction > 0 ) || (y == partialView) {
-        //            tableView.isScrollEnabled = false
-        //        } else {
-        //            tableView.isScrollEnabled = true
-        //        }
+        if (y == fullView && tableView.contentOffset.y == 0 && direction > 0 ) || (y == partialView) {
+            tableView.isScrollEnabled = false
+        } else {
+            tableView.isScrollEnabled = true
+        }
         return false
     }
     
     //MARK: - tableView
-    //    func setupTableView() {
-    //        tableView.delegate = self
-    //        tableView.dataSource = self
-    //
-    //        self.view.addSubview(tableView)
-    //
-    //        tableView.translatesAutoresizingMaskIntoConstraints = false
-    //
-    //        let tableViewConstraints = [
-    //
-    //            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-    //            tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-    //            tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
-    //            tableView.heightAnchor.constraint(equalTo: view.heightAnchor)
-    //        ]
-    //        self.view.addConstraints(tableViewConstraints)
-    //    }
-    
-    
-    
-    
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+            }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "bottomSheetCell", for: indexPath)
+        
+        return cell
+    }
     
     func searchBarView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let locationSearchTable = storyboard.instantiateViewController(withIdentifier: "LocationSearchTable") as? LocationSearchTable else { return }
         
-        locationSearchTable.mapView = TrailsMainViewController.shared.mapView
-        locationSearchTable.handleMapSearchDelegate = TrailsMainViewController.shared
         
         let searchBar = resultSearchController.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
-        navigationItem.titleView = resultSearchController.searchBar
+        tableView.tableHeaderView = searchBar
+        searchBar.delegate = self
+        
         
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController.searchResultsUpdater = locationSearchTable
@@ -152,10 +147,10 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate {
         resultSearchController.hidesNavigationBarDuringPresentation = false
         resultSearchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = false
+        
+        locationSearchTable.mapView = TrailsMainViewController.shared.mapView
+        locationSearchTable.handleMapSearchDelegate = TrailsMainViewController.shared
     }
-    
-    
-    
     
 }
 
