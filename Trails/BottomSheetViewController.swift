@@ -119,11 +119,16 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
         return false
     }
     
-    //MARK: - tableView
+    //MARK: - SearchController
     
-    func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
+            self.view.frame = CGRect(x: 0, y: self.fullView, width: width, height: height)
+        })
     }
     
     func configureSearchController() {
@@ -182,6 +187,12 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     
     //MARK: - UITableViewDataSource
     
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
@@ -195,6 +206,14 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
         handleMapSearchDelegate?.dropPinZoomIn(selectedItem)
+        
+        
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
+            self.view.frame = CGRect(x: 0, y: self.partialView, width: width, height: height)
+        })
         dismiss(animated: true, completion: nil)
     }
     
