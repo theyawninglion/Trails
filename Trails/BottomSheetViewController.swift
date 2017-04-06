@@ -14,35 +14,32 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     static let shared = BottomSheetViewController()
     
     @IBOutlet weak var tableView: UITableView!
-    //MARK: - locationSearch properties
-    var resultSearchController = UISearchController(searchResultsController: nil)
-    
     
     //MARK: - bottomsheet properties
     
+    var searchController = UISearchController(searchResultsController: nil)
+    weak var handleMapSearchDelegate: HandleMapSearch?
+    var matchingItems: [MKMapItem] = []
+    var mapView: MKMapView?
     let fullView: CGFloat = 100
     var partialView: CGFloat {
         return UIScreen.main.bounds.height - 108
     }
-
+    
     
     //MARK: - view
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.panGesture))
-        view.addGestureRecognizer(gesture)
-        gesture.delegate = self
-        view.addGestureRecognizer(gesture)
-
+        gesture()
         configureSearchController()
         setupTableView()
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         prepareBackgroundView()
     }
     
@@ -58,6 +55,7 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     }
     
     func prepareBackgroundView() {
+        
         let blurEffect = UIBlurEffect.init(style: .regular)
         let bluredView = UIVisualEffectView.init(effect: blurEffect)
         bluredView.frame = UIScreen.main.bounds
@@ -67,14 +65,21 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     
     //MARK: -  gesture recognizer
     
+    func gesture() {
+        
+        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.panGesture))
+        view.addGestureRecognizer(gesture)
+        gesture.delegate = self
+        view.addGestureRecognizer(gesture)
+    }
+    
     func panGesture(recognizer: UIPanGestureRecognizer) {
+        
         let width = self.view.frame.width
         let height = self.view.frame.height
         let translation = recognizer.translation(in: self.view)
         let velocity = recognizer.velocity(in: self.view)
-        
         let y = self.view.frame.minY
-        
         
         if (y + translation.y >= fullView) && (y + translation.y <= partialView) {
             self.view.frame = CGRect(x: 0, y: y + translation.y, width: width, height: height)
@@ -94,8 +99,6 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
                 if velocity.y < 0 {
                     self?.tableView.isScrollEnabled = true
                 }
-                
-                
             })
         }
     }
@@ -103,10 +106,11 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
         let gesture = gestureRecognizer as! UIPanGestureRecognizer
         let direction = gesture.velocity(in: view).y
-        
         let y = view.frame.minY
+        
         if (y == fullView && tableView.contentOffset.y == 0 && direction > 0 ) || (y == partialView) {
             tableView.isScrollEnabled = false
         } else {
@@ -116,26 +120,15 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     }
     
     //MARK: - tableView
+    
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        
-            }
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
-//    }
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "bottomSheetCell", for: indexPath)
-//        
-//        return cell
-//    }
+    }
     
     func configureSearchController() {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        guard let locationSearchTable = storyboard.instantiateViewController(withIdentifier: "LocationSearchTable") as? LocationSearchTable else { return }
         
-        
-        let searchBar = resultSearchController.searchBar
+        let searchBar = searchController.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
         searchBar.delegate = self
@@ -143,29 +136,17 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
         
         tableView.tableHeaderView = searchBar
         
-
-//        resultSearchController.searchResultsUpdater = locationSearchTable
-        
-        resultSearchController.searchResultsUpdater = self
-        
-        resultSearchController.hidesNavigationBarDuringPresentation = false
-        resultSearchController.dimsBackgroundDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = false
         
-        handleMapSearchDelegate = TrailsMainViewController.shared
     }
     
-    
-    weak var handleMapSearchDelegate: HandleMapSearch?
-    var matchingItems: [MKMapItem] = []
-    var mapView: MKMapView?
-    
-    
-    
-    func updateSearchResults(for resultSearchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         
         guard let mapViews = mapView,
-            let searchBarText = resultSearchController.searchBar.text
+            let searchBarText = searchController.searchBar.text
             else { return }
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = searchBarText
@@ -181,6 +162,7 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     }
     
     func parseAddress(selectedItem: MKPlacemark) -> String {
+        
         let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
         let comma = (selectedItem.subThoroughfare != nil || selectedItem.thoroughfare != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
         let secondSpace = (selectedItem.subAdministrativeArea != nil && selectedItem.administrativeArea != nil) ? " " : ""
@@ -199,10 +181,11 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     
     
     //MARK: - UITableViewDataSource
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
-   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bottomSheetCell", for: indexPath)
         let selectedItem = matchingItems[indexPath.row].placemark
         cell.textLabel?.text = selectedItem.name
@@ -214,7 +197,7 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
         handleMapSearchDelegate?.dropPinZoomIn(selectedItem)
         dismiss(animated: true, completion: nil)
     }
-
+    
     
 }
 

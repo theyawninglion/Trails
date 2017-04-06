@@ -16,9 +16,9 @@ class LocationSearchTable: UITableViewController{
 //    var mapView: MKMapView?
 //
 //    
-//    func updateSearchResults(for resultSearchController: UISearchController) {
+//    func updateSearchResults(for searchController: UISearchController) {
 //        guard let mapViews = mapView,
-//        let  searchBarText = resultSearchController.searchBar.text
+//        let  searchBarText = searchController.searchBar.text
 //            else { return }
 //        let request = MKLocalSearchRequest()
 //        request.naturalLanguageQuery = searchBarText
