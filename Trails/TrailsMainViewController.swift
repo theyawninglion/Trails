@@ -24,7 +24,6 @@ class TrailsMainViewController: UIViewController{
     //MARK: - search controller properties
     var selectedPin:MKPlacemark? = nil
     let locationMananger = CLLocationManager()
-    
 
     var menuIsShowing = false
     
@@ -72,9 +71,11 @@ class TrailsMainViewController: UIViewController{
     
     func addBottomSheetView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let bottomSheetVC = storyboard.instantiateViewController(withIdentifier: "BottomSheetViewController")
+        guard let bottomSheetVC = storyboard.instantiateViewController(withIdentifier: "BottomSheetViewController") as? BottomSheetViewController else { return }
         bottomSheetVC.loadView()
         bottomSheetVC.viewDidLoad()
+        bottomSheetVC.mapView = mapView
+        
         self.addChildViewController(bottomSheetVC)
         mapView.addSubview(bottomSheetVC.view)
         bottomSheetVC.didMove(toParentViewController: self)

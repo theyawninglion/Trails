@@ -15,7 +15,71 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "19"
             endingLineNumber = "19"
+            landmarkName = "LocationSearchTable"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trails/BottomSheetViewController.swift"
+            timestampString = "513193410.636238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "updateSearchResults(for:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trails.BottomSheetViewController.updateSearchResults (for : __ObjC.UISearchController) -&gt; ()"
+                  moduleName = "Trails"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/taylorphillips/Desktop/trails/Trails/Trails/BottomSheetViewController.swift"
+                  timestampString = "513193411.706327"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "167"
+                  endingLineNumber = "167"
+                  offsetFromSymbolStart = "26">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trails.BottomSheetViewController.updateSearchResults (for : __ObjC.UISearchController) -&gt; ()"
+                  moduleName = "Trails"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/taylorphillips/Desktop/trails/Trails/Trails/BottomSheetViewController.swift"
+                  timestampString = "513193411.708529"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "167"
+                  endingLineNumber = "167"
+                  offsetFromSymbolStart = "84">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trails/TrailsMainViewController.swift"
+            timestampString = "513193410.636238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "addBottomSheetView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

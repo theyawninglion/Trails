@@ -12,8 +12,10 @@ class EventController {
     
     static let baseURL = URL(string: "http://api.eventful.com/")
     static let apiKey = "app_key=zHKbcM58mVrqnf8t"
-    static let time = "t=Today"
-    static func fetchEvent(for catagory: String, completion: @escaping (Event?) -> Void) {
+    static let time = "date=Today"
+    static let locationKey = "locatoin"
+    static let categoryKey = "c"
+    static func fetchEvent(for catagory: String, userLocation: String, completion: @escaping (Event?) -> Void) {
         
         guard let unwrappedUrl = baseURL else { completion(nil) ; return }
         
