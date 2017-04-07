@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Event {
     private let latitudeKey = "latitude"
@@ -19,7 +20,7 @@ class Event {
     private let stopTimeKey = "stop_time"
     private let eventNameKey = "venue_name"
     private let descriptionKey = "description"
-
+    private let imageKey = "image"
     
     let latitude: Double
     let longitude: Double
@@ -31,6 +32,13 @@ class Event {
     let stopTime: Date
     let eventName: String
     let description: String
+    
+    // FIXME: - fetch image
+//    let eventImageURLString: String
+//    var eventImage: UIImage?
+//    var imageURL: URL? {
+//        return URL(string: eventImageURLString)
+//    }
     
     init(latitude: Double, longitude: Double, country: String, city: String, address: String, title: String, startTime: Date, stopTime: Date, eventName: String, description: String) {
         self.latitude = latitude

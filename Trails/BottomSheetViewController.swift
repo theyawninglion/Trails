@@ -22,7 +22,7 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     var matchingItems: [MKMapItem] = []
     var mapView: MKMapView?
     let fullView: CGFloat = 100
-    var partialView: CGFloat {
+    var bottomView: CGFloat {
         return UIScreen.main.bounds.height - 108
     }
     
@@ -48,7 +48,7 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
         
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let frame = self?.view.frame,
-                let yComponent = self?.partialView
+                let yComponent = self?.bottomView
                 else { return }
             self?.view.frame = CGRect(x: 0, y: yComponent, width: frame.width, height: frame.height - 100)
         }
@@ -81,17 +81,17 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
         let velocity = recognizer.velocity(in: self.view)
         let y = self.view.frame.minY
         
-        if (y + translation.y >= fullView) && (y + translation.y <= partialView) {
+        if (y + translation.y >= fullView) && (y + translation.y <= bottomView) {
             self.view.frame = CGRect(x: 0, y: y + translation.y, width: width, height: height)
             recognizer.setTranslation(CGPoint.zero, in: self.view)
         }
         if recognizer.state == .ended {
-            var duration = velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((partialView - y) / velocity.y)
+            var duration = velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((bottomView - y) / velocity.y)
             duration = duration > 1.3 ? 1 : duration
             
             UIView.animate(withDuration: duration, delay: 0.0, options: [.allowUserInteraction], animations: {
                 if velocity.y >= 0 {
-                    self.view.frame = CGRect(x: 0, y: self.partialView, width: width, height: height)
+                    self.view.frame = CGRect(x: 0, y: self.bottomView, width: width, height: height)
                 } else {
                     self.view.frame = CGRect(x: 0, y: self.fullView, width: width, height: height)
                 }
@@ -111,7 +111,7 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
         let direction = gesture.velocity(in: view).y
         let y = view.frame.minY
         
-        if (y == fullView && tableView.contentOffset.y == 0 && direction > 0 ) || (y == partialView) {
+        if (y == fullView && tableView.contentOffset.y == 0 && direction > 0 ) || (y == bottomView) {
             tableView.isScrollEnabled = false
         } else {
             tableView.isScrollEnabled = true
@@ -128,6 +128,16 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
         
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
             self.view.frame = CGRect(x: 0, y: self.fullView, width: width, height: height)
+        })
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
+            self.view.frame = CGRect(x: 0, y: self.bottomView, width: width, height: height)
         })
     }
     
@@ -190,34 +200,35 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundView?.isOpaque = true
+        
     }
-
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bottomSheetCell", for: indexPath)
         let selectedItem = matchingItems[indexPath.row].placemark
         cell.textLabel?.text = selectedItem.name
         cell.detailTextLabel?.text = parseAddress(selectedItem: selectedItem)
+        cell.backgroundView?.isOpaque = true
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
         handleMapSearchDelegate?.dropPinZoomIn(selectedItem)
-        
         
         let width = self.view.frame.width
         let height = self.view.frame.height
         
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
-            self.view.frame = CGRect(x: 0, y: self.partialView, width: width, height: height)
+            self.view.frame = CGRect(x: 0, y: self.bottomView, width: width, height: height)
         })
         dismiss(animated: true, completion: nil)
     }
-    
-    
 }
 
 
