@@ -10,14 +10,14 @@ import Foundation
 
 class EventController {
     
-    static let baseURL = URL(string: "http://api.eventful.com/")
+    static let baseURL = URL(string: "http://api.eventful.com/json/events/search")
     static let apiKey = "app_key"
     static let securityKey = "zHKbcM58mVrqnf8t"
     static let timeKey = "date"
     static let time = "Today"
     static let locationKey = "locatoin"
     static let categoryKey = "c"
-    static func fetchEvent(for category: String, userLocation: String, completion: @escaping ([Event]) -> Void) {
+    static func fetchEvent(category: String, userLocation: String, completion: @escaping ([Event]) -> Void) {
         
         guard let url = baseURL else { completion([]) ; return }
         let urlParameters = [ apiKey : securityKey, timeKey: time, categoryKey: category, locationKey: userLocation]

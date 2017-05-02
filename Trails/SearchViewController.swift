@@ -1,5 +1,5 @@
 //
-//  BottomSheetViewController.swift
+//  SearchViewController.swift
 //  Trails
 //
 //  Created by Taylor Phillips on 4/3/17.
@@ -9,11 +9,14 @@
 import UIKit
 import MapKit
 
-class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchResultsUpdating {
+class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, UISearchBarDelegate, UISearchResultsUpdating, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    static let shared = BottomSheetViewController()
+    static let shared = SearchViewController()
     
-    @IBOutlet weak var tableView: UITableView!
+    var collectionLabels = [String]()
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+//    @IBOutlet weak var tableView: UITableView!
     
     //MARK: - bottomsheet properties
     
@@ -35,6 +38,7 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
         gesture()
         configureSearchController()
         setupTableView()
+        setupCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,7 +71,7 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     
     func gesture() {
         
-        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(BottomSheetViewController.panGesture))
+        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(SearchViewController.panGesture))
         view.addGestureRecognizer(gesture)
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
@@ -129,6 +133,8 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
             self.view.frame = CGRect(x: 0, y: self.fullView, width: width, height: height)
         })
+//        let collectionView = UIView.insertSubview
+//        collectionView.view.frame.height = 99
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -198,26 +204,28 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
     //MARK: - UITableViewDataSource
     
     func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        
         tableView.backgroundView?.isOpaque = true
         
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "bottomSheetCell", for: indexPath)
-        let selectedItem = matchingItems[indexPath.row].placemark
-        cell.textLabel?.text = selectedItem.name
-        cell.detailTextLabel?.text = parseAddress(selectedItem: selectedItem)
-        cell.backgroundView?.isOpaque = true
-        return cell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+            let searchCell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath)
+            let selectedItem = matchingItems[indexPath.row].placemark
+            searchCell.textLabel?.text = selectedItem.name
+            searchCell.detailTextLabel?.text = parseAddress(selectedItem: selectedItem)
+            searchCell.backgroundView?.isOpaque = true
+        
+            return searchCell
+        
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
         handleMapSearchDelegate?.dropPinZoomIn(selectedItem)
         
@@ -229,6 +237,34 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
         })
         dismiss(animated: true, completion: nil)
     }
+    
+    //MARK: - collectionview dataSource
+    
+    func setupCollectionView() {
+        
+        collectionLabels = ["Theater", "Music", "Dance", "Art", "Film", "Festivals", "Family", "Free", "Sports"]
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of items
+        return collectionLabels.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mainCell", for: indexPath)
+        
+        let button = cell.viewWithTag(1) as? UIButton
+        button?.setTitle( collectionLabels[indexPath.row], for: UIControlState.normal)
+        
+        return cell
+    }
+    
 }
 
 

@@ -39,6 +39,14 @@ class TrailsMainViewController: UIViewController{
         }
         menuIsShowing = !menuIsShowing
     }
+    @IBAction func apiCallButtonTapped(_ sender: Any) {
+        guard let location = self.cityName else { return }
+        let music = "music"
+        EventController.fetchEvent(category: music, userLocation: location) { (_) in
+            
+        }
+        
+    }
     
     //MARK: -  view load out
     
@@ -67,8 +75,8 @@ class TrailsMainViewController: UIViewController{
     //MARK: - bottom sheet view
     
     func addBottomSheetView() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let bottomSheetVC = storyboard.instantiateViewController(withIdentifier: "BottomSheetViewController") as? BottomSheetViewController else { return }
+        let storyboard = UIStoryboard(name: "Search", bundle: nil)
+        guard let bottomSheetVC = storyboard.instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController else { return }
         bottomSheetVC.loadView()
         bottomSheetVC.viewDidLoad()
         bottomSheetVC.mapView = mapView
@@ -90,7 +98,7 @@ class TrailsMainViewController: UIViewController{
         locationMananger.requestWhenInUseAuthorization()
         locationMananger.requestLocation()
     }
-
+    
     func sideMenu() {
         profileMenuSideConstraint.constant = -250
         profileMenuView.layer.opacity = 0.9
@@ -105,6 +113,7 @@ class TrailsMainViewController: UIViewController{
         mapItem.openInMaps(launchOptions: launchOptions)
     }
     
+    
     /*
      // MARK: - Navigation
      
@@ -114,6 +123,8 @@ class TrailsMainViewController: UIViewController{
      // Pass the selected object to the new view controller.
      }
      */
+    var cityName: String?
+    var zipCode: String?
 }
 
 
@@ -134,6 +145,40 @@ extension TrailsMainViewController: CLLocationManagerDelegate {
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
             
+            let geoCoder = CLGeocoder()
+            geoCoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
+                guard let addressDict = placemarks?[0].addressDictionary else {
+                    return
+                }
+                
+                // Print each key-value pair in a new row
+                addressDict.forEach { print($0) }
+                
+                // Print fully formatted address
+                if let formattedAddress = addressDict["FormattedAddressLines"] as? [String] {
+                    print(formattedAddress.joined(separator: ", "))
+                }
+                
+                // Access each element manually
+                if let locationName = addressDict["Name"] as? String {
+                    print(locationName)
+                }
+                if let street = addressDict["Thoroughfare"] as? String {
+                    print(street)
+                }
+                if let city = addressDict["City"] as? String {
+                    self.cityName = city
+                    print(city)
+                }
+                if let zip = addressDict["ZIP"] as? String {
+                    self.zipCode = zip
+                    print(zip)
+                }
+                if let country = addressDict["Country"] as? String {
+                    print(country)
+                }
+            })
+
         }
     }
     
@@ -141,6 +186,8 @@ extension TrailsMainViewController: CLLocationManagerDelegate {
         print("error: \(error.localizedDescription)")
     }
 }
+
+
 
 //MARK: - extention for handleMapSearch protocol
 
@@ -155,7 +202,7 @@ extension TrailsMainViewController: HandleMapSearch {
         if let city = placemark.locality, let state = placemark.administrativeArea {
             annotation.subtitle = "\(city) \(state)"
         }
-       mapView.addAnnotation(annotation)
+        mapView.addAnnotation(annotation)
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
         mapView.setRegion(region, animated: true)
@@ -184,4 +231,65 @@ extension TrailsMainViewController: MKMapViewDelegate {
         
         return pinView
     }
+    
+    func didLongPressMap(sender: UILongPressGestureRecognizer) {
+        
+        if sender.state == UIGestureRecognizerState.began {
+            let touchPoint = sender.location(in: mapView)
+            let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: self.mapView)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = touchCoordinate
+            annotation.title = "Your position"
+            mapView.addAnnotation(annotation) //drops the pin
+            print("lat:  \(touchCoordinate.latitude)")
+            let num = touchCoordinate.latitude as NSNumber
+            let formatter = NumberFormatter()
+            formatter.maximumFractionDigits = 4
+            formatter.minimumFractionDigits = 4
+            let str = formatter.string(from: num)
+            print("long: \(touchCoordinate.longitude)")
+            let num1 = touchCoordinate.longitude as NSNumber
+            let formatter1 = NumberFormatter()
+            formatter1.maximumFractionDigits = 4
+            formatter1.minimumFractionDigits = 4
+            let str1 = formatter1.string(from: num1)
+            //            adressLoLa.text = "\(num),\(num1)"
+            
+            // Add below code to get address for touch coordinates.
+            let geoCoder = CLGeocoder()
+            let location = CLLocation(latitude: touchCoordinate.latitude, longitude: touchCoordinate.longitude)
+            
+            geoCoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
+                guard let addressDict = placemarks?[0].addressDictionary else {
+                    return
+                }
+                
+                // Print each key-value pair in a new row
+                addressDict.forEach { print($0) }
+                
+                // Print fully formatted address
+                if let formattedAddress = addressDict["FormattedAddressLines"] as? [String] {
+                    print(formattedAddress.joined(separator: ", "))
+                }
+                
+                // Access each element manually
+                if let locationName = addressDict["Name"] as? String {
+                    print(locationName)
+                }
+                if let street = addressDict["Thoroughfare"] as? String {
+                    print(street)
+                }
+                if let city = addressDict["City"] as? String {
+                    print(city)
+                }
+                if let zip = addressDict["ZIP"] as? String {
+                    print(zip)
+                }
+                if let country = addressDict["Country"] as? String {
+                    print(country)
+                }
+            })
+        }
+    }
+    
 }
