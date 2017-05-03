@@ -266,10 +266,9 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let location = LocationManager.shared.cityName
+        guard let location = LocationManager.shared.zipCode
             else { return }
-        print("selected \(indexPath.row) \(collectionLabels[indexPath.row])")
-      
+             
         EventController.fetchEvent(category: collectionLabels[indexPath.row], userLocation: location, completion: { _ in
         })
 

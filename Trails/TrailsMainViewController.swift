@@ -16,8 +16,7 @@ protocol HandleMapSearch: class { func dropPinZoomIn(_ placemark: MKPlacemark) }
 class TrailsMainViewController: UIViewController {
     
     
-    //MARK: - search controller properties
-    
+    //MARK: - properties & outlets
     let locationMananger = LocationManager.shared.locationMananger
     var selectedPin:MKPlacemark? = nil
     var menuIsShowing = false
@@ -26,6 +25,7 @@ class TrailsMainViewController: UIViewController {
     @IBOutlet weak var profileMenuSideConstraint: NSLayoutConstraint!
     @IBOutlet weak var profileMenuView: UIView!
     
+    //MARK: - actions
     @IBAction func profileButtonTapped(_ sender: Any) {
         
         if menuIsShowing {
@@ -37,20 +37,12 @@ class TrailsMainViewController: UIViewController {
         }
         menuIsShowing = !menuIsShowing
     }
-    @IBAction func apiCallButtonTapped(_ sender: Any) {
-        guard let location = LocationManager.shared.cityName else { return }
-        let music = "music"
-        EventController.fetchEvent(category: music, userLocation: location) { (_) in
-
-        }
-        
-    }
     
     //MARK: -  view load out
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        mapView = LocationManager.shared.mapView
+
         setupLocationManager()
         sideMenu()
     }
@@ -59,19 +51,16 @@ class TrailsMainViewController: UIViewController {
         super.viewDidAppear(animated)
         
         addBottomSheetView()
-        
     }
     
     //MARK: - animation
-    
     func menuAnimation() {
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
     }
     
-    //MARK: - bottom sheet view
-    
+    //MARK: - bottom searchbar sliding sheet view
     func addBottomSheetView() {
         let storyboard = UIStoryboard(name: "Search", bundle: nil)
         guard let bottomSheetVC = storyboard.instantiateViewController(withIdentifier: "SearchViewController") as? SearchViewController else { return }
@@ -88,8 +77,7 @@ class TrailsMainViewController: UIViewController {
         bottomSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
-    //MARK: - searchBarMapDisplay
-    
+    //MARK: - Location Manager
     func setupLocationManager() {
         locationMananger.delegate = LocationManager.shared
         locationMananger.desiredAccuracy = kCLLocationAccuracyBest
@@ -97,6 +85,7 @@ class TrailsMainViewController: UIViewController {
         locationMananger.requestLocation()
     }
     
+    //MARK: - initial setup of the side menu
     func sideMenu() {
         profileMenuSideConstraint.constant = -250
         profileMenuView.layer.opacity = 0.9
@@ -104,6 +93,7 @@ class TrailsMainViewController: UIViewController {
         profileMenuView.layer.shadowRadius = 3
     }
     
+    //MARK: - opens apple maps for selected pin
     func getDirections() {
         guard let selectedPin = selectedPin else { return }
         let mapItem = MKMapItem(placemark: selectedPin)
@@ -114,7 +104,6 @@ class TrailsMainViewController: UIViewController {
 }
 
 //MARK: - extention for handleMapSearch protocol
-
 extension TrailsMainViewController: HandleMapSearch {
     func dropPinZoomIn(_ placemark: MKPlacemark) {
         
@@ -133,6 +122,7 @@ extension TrailsMainViewController: HandleMapSearch {
     }
 }
 
+//MARK: -  creation of pins
 extension TrailsMainViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -156,6 +146,9 @@ extension TrailsMainViewController: MKMapViewDelegate {
         return pinView
     }
     
+    //MARK: -  future feature that allows the user to change their location by pressing longer on the screen
+    // FIXME: - long press to change location doesn't work
+
     func didLongPressMap(sender: UILongPressGestureRecognizer) {
         
         if sender.state == UIGestureRecognizerState.began {

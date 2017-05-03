@@ -17,10 +17,12 @@ class EventController {
     static let time = "Today"
     static let locationKey = "locatoin"
     static let categoryKey = "c"
+    static let imageKey = "image_sizes"
+    static let imageSizes = "small,block100,large"
     static func fetchEvent(category: String, userLocation: String, completion: @escaping ([Event]) -> Void) {
         
         guard let url = baseURL else { completion([]) ; return }
-        let urlParameters = [ apiKey : securityKey, timeKey: time, categoryKey: category, locationKey: userLocation]
+        let urlParameters = [ apiKey : securityKey, timeKey: time, imageKey: imageSizes,  categoryKey: category, locationKey: userLocation]
         
         NetworkController.performRequest(for: url, httpMethod: .Get, urlParameters: urlParameters, body: nil) { (data, error) in
             if let error = error {
@@ -30,18 +32,28 @@ class EventController {
             }
             guard let data = data,
             let jsonDictionary = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) as? [String: Any],
-            let eventsArray = jsonDictionary["events"] as? [[String:Any]]
+            let eventsDictionary = jsonDictionary["events"] as? [String:Any],
+            let eventsArray = eventsDictionary["event"] as? [[String: Any]]
+                
                 else { completion([]); return }
             
             let events = eventsArray.flatMap({ Event(dictionary: $0) })
             
-            // FIXME: - fetch array of images
-//            for event in events {
-//                ImageController.image(forURL: event.eventImageURLString, completion: { (eventImage) in
-//                    event.eventImage = eventImage
-//                })
-//            }
+            
+            for event in events {
+                guard let largeImageURL = event.largeImageURL, let smallImageURL = event.smallImageURL
+                    else { return }
+                
+                ImageController.image(forURL: largeImageURL, completion: { (image) in
+                    event.largeImage = image
+                })
+                ImageController.image(forURL: smallImageURL, completion: { (image) in
+                    event.smallImage = image
+                })
+            }
+            print(events.first?.venueAddress ?? "nothing there")
             completion(events)
+            
         }
        
     }

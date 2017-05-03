@@ -179,13 +179,6 @@
                                     <constraint firstItem="RUl-Kg-2im" firstAttribute="top" secondItem="Cz6-de-E0I" secondAttribute="bottom" constant="66" id="gDi-nk-155"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEX-vf-6OP">
-                                <rect key="frame" x="311" y="510" width="51" height="30"/>
-                                <state key="normal" title="API call"/>
-                                <connections>
-                                    <action selector="apiCallButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PpM-Ug-Mi2"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -194,9 +187,7 @@
                             <constraint firstItem="e6r-QS-8U9" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="Pia-rC-ahC"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hp4-Yj-Upm" secondAttribute="bottom" id="bT0-PF-8xp"/>
                             <constraint firstItem="e6r-QS-8U9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="i7C-wM-tnc"/>
-                            <constraint firstAttribute="trailing" secondItem="vEX-vf-6OP" secondAttribute="trailing" constant="13" id="nK5-1D-o1D"/>
                             <constraint firstItem="hp4-Yj-Upm" firstAttribute="leading" secondItem="e6r-QS-8U9" secondAttribute="leading" id="olm-xW-Tun"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vEX-vf-6OP" secondAttribute="bottom" constant="127" id="vRH-B2-emR"/>
                             <constraint firstItem="hp4-Yj-Upm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="wEP-38-pYN"/>
                             <constraint firstItem="e6r-QS-8U9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ygw-Dy-RBb"/>
                             <constraint firstItem="hp4-Yj-Upm" firstAttribute="width" secondItem="e6r-QS-8U9" secondAttribute="width" multiplier="4/7" id="yhH-62-wjY"/>
