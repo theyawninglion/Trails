@@ -13,16 +13,14 @@ import MapKit
 
 protocol HandleMapSearch: class { func dropPinZoomIn(_ placemark: MKPlacemark) }
 
-class TrailsMainViewController: UIViewController{
+class TrailsMainViewController: UIViewController {
     
-    static let shared = TrailsMainViewController()
     
     //MARK: - search controller properties
     
-    let locationMananger = CLLocationManager()
+    let locationMananger = LocationManager.shared.locationMananger
     var selectedPin:MKPlacemark? = nil
     var menuIsShowing = false
-    
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var profileMenuSideConstraint: NSLayoutConstraint!
@@ -40,10 +38,10 @@ class TrailsMainViewController: UIViewController{
         menuIsShowing = !menuIsShowing
     }
     @IBAction func apiCallButtonTapped(_ sender: Any) {
-        guard let location = self.cityName else { return }
+        guard let location = LocationManager.shared.cityName else { return }
         let music = "music"
         EventController.fetchEvent(category: music, userLocation: location) { (_) in
-            
+
         }
         
     }
@@ -52,7 +50,7 @@ class TrailsMainViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        mapView = LocationManager.shared.mapView
         setupLocationManager()
         sideMenu()
     }
@@ -93,7 +91,7 @@ class TrailsMainViewController: UIViewController{
     //MARK: - searchBarMapDisplay
     
     func setupLocationManager() {
-        locationMananger.delegate = self
+        locationMananger.delegate = LocationManager.shared
         locationMananger.desiredAccuracy = kCLLocationAccuracyBest
         locationMananger.requestWhenInUseAuthorization()
         locationMananger.requestLocation()
@@ -113,81 +111,7 @@ class TrailsMainViewController: UIViewController{
         mapItem.openInMaps(launchOptions: launchOptions)
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    var cityName: String?
-    var zipCode: String?
 }
-
-
-
-//MARK: - extention for CLLocationManager
-
-extension TrailsMainViewController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationMananger.requestLocation()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            let span = MKCoordinateSpanMake(0.095, 0.095)
-            let region = MKCoordinateRegion(center: location.coordinate, span: span)
-            mapView.setRegion(region, animated: true)
-            
-            let geoCoder = CLGeocoder()
-            geoCoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
-                guard let addressDict = placemarks?[0].addressDictionary else {
-                    return
-                }
-                
-                // Print each key-value pair in a new row
-                addressDict.forEach { print($0) }
-                
-                // Print fully formatted address
-                if let formattedAddress = addressDict["FormattedAddressLines"] as? [String] {
-                    print(formattedAddress.joined(separator: ", "))
-                }
-                
-                // Access each element manually
-                if let locationName = addressDict["Name"] as? String {
-                    print(locationName)
-                }
-                if let street = addressDict["Thoroughfare"] as? String {
-                    print(street)
-                }
-                if let city = addressDict["City"] as? String {
-                    self.cityName = city
-                    print(city)
-                }
-                if let zip = addressDict["ZIP"] as? String {
-                    self.zipCode = zip
-                    print(zip)
-                }
-                if let country = addressDict["Country"] as? String {
-                    print(country)
-                }
-            })
-
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error: \(error.localizedDescription)")
-    }
-}
-
-
 
 //MARK: - extention for handleMapSearch protocol
 

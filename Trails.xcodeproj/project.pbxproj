@@ -26,6 +26,7 @@
 		5AAD16871EB3C04E00429256 /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AAD16861EB3C04E00429256 /* Event.storyboard */; };
 		5AAD168D1EB7D1B700429256 /* MainCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAD168C1EB7D1B700429256 /* MainCollectionTableViewCell.swift */; };
 		5AAD16911EB7DFDD00429256 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AAD16901EB7DFDD00429256 /* Search.storyboard */; };
+		5AAD16931EB91A1800429256 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAD16921EB91A1800429256 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		5AAD16861EB3C04E00429256 /* Event.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Event.storyboard; sourceTree = "<group>"; };
 		5AAD168C1EB7D1B700429256 /* MainCollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		5AAD16901EB7DFDD00429256 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		5AAD16921EB91A1800429256 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				5AAB2B681E956C1C00C20044 /* NetworkController.swift */,
 				5AAB2B6C1E956C5300C20044 /* ImageController.swift */,
 				5AAB2B6E1E956DB400C20044 /* DateHelper.swift */,
+				5AAD16921EB91A1800429256 /* LocationManager.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				5AAB2B6D1E956C5300C20044 /* ImageController.swift in Sources */,
 				5AAB2B6F1E956DB400C20044 /* DateHelper.swift in Sources */,
 				5AAB2B711E95814700C20044 /* EventController.swift in Sources */,
+				5AAD16931EB91A1800429256 /* LocationManager.swift in Sources */,
 				5AAD168D1EB7D1B700429256 /* MainCollectionTableViewCell.swift in Sources */,
 				5A5D09AF1E80D46400DC695F /* TrailsMainViewController.swift in Sources */,
 				5A5D09931E80BDB600DC695F /* AppDelegate.swift in Sources */,

@@ -16,7 +16,7 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
     var collectionLabels = [String]()
     
     @IBOutlet weak var collectionView: UICollectionView!
-//    @IBOutlet weak var tableView: UITableView!
+    //    @IBOutlet weak var tableView: UITableView!
     
     //MARK: - bottomsheet properties
     
@@ -133,8 +133,8 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
             self.view.frame = CGRect(x: 0, y: self.fullView, width: width, height: height)
         })
-//        let collectionView = UIView.insertSubview
-//        collectionView.view.frame.height = 99
+        //        let collectionView = UIView.insertSubview
+        //        collectionView.view.frame.height = 99
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -215,13 +215,13 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-            let searchCell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath)
-            let selectedItem = matchingItems[indexPath.row].placemark
-            searchCell.textLabel?.text = selectedItem.name
-            searchCell.detailTextLabel?.text = parseAddress(selectedItem: selectedItem)
-            searchCell.backgroundView?.isOpaque = true
+        let searchCell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath)
+        let selectedItem = matchingItems[indexPath.row].placemark
+        searchCell.textLabel?.text = selectedItem.name
+        searchCell.detailTextLabel?.text = parseAddress(selectedItem: selectedItem)
+        searchCell.backgroundView?.isOpaque = true
         
-            return searchCell
+        return searchCell
         
     }
     
@@ -259,12 +259,21 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mainCell", for: indexPath)
         
-        let button = cell.viewWithTag(1) as? UIButton
-        button?.setTitle( collectionLabels[indexPath.row], for: UIControlState.normal)
+        let button = cell.viewWithTag(1) as? UILabel
+        button?.text = collectionLabels[indexPath.row]
         
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let location = LocationManager.shared.cityName
+            else { return }
+        print("selected \(indexPath.row) \(collectionLabels[indexPath.row])")
+      
+        EventController.fetchEvent(category: collectionLabels[indexPath.row], userLocation: location, completion: { _ in
+        })
+
+    }
 }
 
 
