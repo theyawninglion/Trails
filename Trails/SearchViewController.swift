@@ -280,7 +280,7 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
         let currentDistWideInMeters = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint)
         let milesWide = currentDistWideInMeters / 1609.34  // number of meters in a mile
         
-        let distance = "\(milesWide)"
+        let distance = "\(milesWide + 10)"
         DispatchQueue.main.async {
             EventController.fetchEvent(category: self.collectionLabels[indexPath.row], userLocation: location, distance: distance, completion: { events in
            self.handleMapSearchDelegate?.dropPinZoomIn(events)
