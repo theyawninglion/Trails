@@ -268,11 +268,21 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         guard let location = LocationManager.shared.zipCode
             else { return }
-
+        
+        // calculation to find the current width of map in miles at the time that the user searches a catagory
+        
+        let mRect: MKMapRect = mapView!.visibleMapRect
+        let eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect))
+        let westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect))
+        let currentDistWideInMeters = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint)
+        let milesWide = currentDistWideInMeters / 1609.34  // number of meters in a mile
+        
+        let distance = "\(milesWide)"
         DispatchQueue.main.async {
-            EventController.fetchEvent(category: self.collectionLabels[indexPath.row], userLocation: location, completion: { events in
+            EventController.fetchEvent(category: self.collectionLabels[indexPath.row], userLocation: location, distance: distance, completion: { events in
            self.handleMapSearchDelegate?.dropPinZoomIn(events)
             })
 
@@ -284,7 +294,6 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
             self.view.frame = CGRect(x: 0, y: self.halfView, width: width, height: height)
         })
-        
 
 
     }

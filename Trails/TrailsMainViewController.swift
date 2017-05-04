@@ -151,9 +151,6 @@ extension TrailsMainViewController: HandleMapSearch {
             
             
             mapView.addAnnotation(annotation)
-//            let span = MKCoordinateSpanMake(0.05, 0.05)
-//            let region = MKCoordinateRegionMake(coordinate, span)
-//            mapView.setRegion(region, animated: true)
         }
         mapView.showAnnotations(mapView.annotations, animated: true)
     }

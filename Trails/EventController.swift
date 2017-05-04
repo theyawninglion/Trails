@@ -20,10 +20,12 @@ class EventController {
     static let imageKey = "image_sizes"
     static let imageSizes = "small,block100,large"
     static let distanceKey = "within"
-    static func fetchEvent(category: String, userLocation: String, completion: @escaping ([Event]) -> Void) {
+    static let unitKey = "units"
+    static let unitType = "miles"
+    static func fetchEvent(category: String, userLocation: String, distance: String, completion: @escaping ([Event]) -> Void) {
         
         guard let url = baseURL else { completion([]) ; return }
-        let urlParameters = [ apiKey : securityKey, timeKey: time, imageKey: imageSizes,  categoryKey: category, locationKey: userLocation]
+        let urlParameters = [ apiKey : securityKey, timeKey: time, imageKey: imageSizes,  categoryKey: category, locationKey: userLocation, distanceKey: distance, unitKey: unitType]
         
         NetworkController.performRequest(for: url, httpMethod: .Get, urlParameters: urlParameters, body: nil) { (data, error) in
             if let error = error {
