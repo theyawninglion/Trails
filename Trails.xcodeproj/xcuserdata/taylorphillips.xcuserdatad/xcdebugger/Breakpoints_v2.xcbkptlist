@@ -22,63 +22,95 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Trails/EventController.swift"
-            timestampString = "515528358.913273"
+            filePath = "Trails/Event.swift"
+            timestampString = "515626031.53083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "fetchEvent(category:userLocation:completion:)"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "init(dictionary:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trails.Event.init (dictionary : Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; Swift.Optional&lt;Trails.Event&gt;"
+                  moduleName = "Trails"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/taylorphillips/Desktop/trails/Trails/Trails/Event.swift"
+                  timestampString = "515626422.80689"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "1071">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trails.Event.init (dictionary : Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; Swift.Optional&lt;Trails.Event&gt;"
+                  moduleName = "Trails"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/taylorphillips/Desktop/trails/Trails/Trails/Event.swift"
+                  timestampString = "515626422.808386"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "1531">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Trails/Event.swift"
-            timestampString = "515536573.533587"
+            filePath = "Trails/EventController.swift"
+            timestampString = "515626065.666204"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "init(dictionary:)"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "fetchEvent(category:userLocation:completion:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Trails.Event.init (dictionary : Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; Swift.Optional&lt;Trails.Event&gt;"
+                  symbolName = "static Trails.EventController.(fetchEvent (category : Swift.String, userLocation : Swift.String, completion : (Swift.Array&lt;Trails.Event&gt;) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "Trails"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/taylorphillips/Desktop/trails/Trails/Trails/Event.swift"
-                  timestampString = "515537320.718915"
+                  urlString = "file:///Users/taylorphillips/Desktop/trails/Trails/Trails/EventController.swift"
+                  timestampString = "515626910.759476"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56"
-                  offsetFromSymbolStart = "1013">
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "715">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Trails.Event.init (dictionary : Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; Swift.Optional&lt;Trails.Event&gt;"
+                  symbolName = "static Trails.EventController.(fetchEvent (category : Swift.String, userLocation : Swift.String, completion : (Swift.Array&lt;Trails.Event&gt;) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "Trails"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/taylorphillips/Desktop/trails/Trails/Trails/Event.swift"
-                  timestampString = "515537320.720688"
+                  urlString = "file:///Users/taylorphillips/Desktop/trails/Trails/Trails/EventController.swift"
+                  timestampString = "515626910.76176"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56"
-                  offsetFromSymbolStart = "1473">
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "756">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -89,13 +121,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Trails/Event.swift"
-            timestampString = "515536705.561612"
+            filePath = "Trails/TrailsMainViewController.swift"
+            timestampString = "515628689.48819"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "init(dictionary:)"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "dropPinZoomIn(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trails/EventController.swift"
+            timestampString = "515626435.668902"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "fetchEvent(category:userLocation:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

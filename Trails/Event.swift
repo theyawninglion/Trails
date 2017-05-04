@@ -11,10 +11,13 @@ import UIKit
 
 class Event {
     
+    //MARK: -  property keys
+    
     private let latitudeKey = "latitude"
     private let longitudeKey = "longitude"
     private let eventURLKey = "url"
     private let cityKey = "city_name"
+    private let stateKey = "region_abbr"
     private let countryKey = "country_name"
     private let startTimeKey = "start_time"
     private let stopTimeKey = "stop_time"
@@ -30,12 +33,13 @@ class Event {
     private let smallImageDictionaryKey = "small"
     private let smallImageURLKey = "url"
     
-    
+    //MARK: - properties
     
     let latitude: String
     let longitude: String
     let eventURL: String
     let city: String
+    let state: String
     let country: String
     let startTime: String
     let stopTime: String?
@@ -51,12 +55,15 @@ class Event {
     var largeImage: UIImage?
     var smallImage: UIImage?
     
+    //MARK: -  failable initializer
+    
     init?(dictionary: [String: Any]) {
         
         guard let latitude = dictionary[latitudeKey] as? String,
             let longitude = dictionary[longitudeKey] as? String,
             let eventURL = dictionary[eventURLKey] as? String,
             let city = dictionary[cityKey] as? String,
+            let state = dictionary[stateKey] as? String,
             let country = dictionary[countryKey] as? String,
             let startTime = dictionary[startTimeKey] as? String,
             let eventTitle = dictionary[eventTitleKey] as? String,
@@ -75,6 +82,7 @@ class Event {
         self.longitude = longitude
         self.eventURL = eventURL
         self.city = city
+        self.state = state
         self.country = country
         self.startTime = startTime
         self.stopTime = dictionary[stopTimeKey] as? String

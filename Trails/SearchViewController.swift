@@ -23,8 +23,10 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
     var searchController = UISearchController(searchResultsController: nil)
     weak var handleMapSearchDelegate: HandleMapSearch?
     var matchingItems: [MKMapItem] = []
+//    var events: [Event] = []
     var mapView: MKMapView?
     let fullView: CGFloat = 100
+    var halfView: CGFloat = 275
     var bottomView: CGFloat {
         return UIScreen.main.bounds.height - 108
     }
@@ -131,7 +133,7 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
         let height = self.view.frame.height
         
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
-            self.view.frame = CGRect(x: 0, y: self.fullView, width: width, height: height)
+            self.view.frame = CGRect(x: 0, y: self.halfView, width: width, height: height)
         })
         //        let collectionView = UIView.insertSubview
         //        collectionView.view.frame.height = 99
@@ -268,9 +270,22 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let location = LocationManager.shared.zipCode
             else { return }
-             
-        EventController.fetchEvent(category: collectionLabels[indexPath.row], userLocation: location, completion: { _ in
+
+        DispatchQueue.main.async {
+            EventController.fetchEvent(category: self.collectionLabels[indexPath.row], userLocation: location, completion: { events in
+           self.handleMapSearchDelegate?.dropPinZoomIn(events)
+            })
+
+        }
+        
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
+            self.view.frame = CGRect(x: 0, y: self.halfView, width: width, height: height)
         })
+        
+
 
     }
 }

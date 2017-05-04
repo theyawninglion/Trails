@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A1D93351EBBBF960051B39E /* PinAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1D93341EBBBF960051B39E /* PinAnnotationController.swift */; };
 		5A5D09931E80BDB600DC695F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5D09921E80BDB600DC695F /* AppDelegate.swift */; };
 		5A5D09981E80BDB600DC695F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A5D09961E80BDB600DC695F /* Main.storyboard */; };
 		5A5D099A1E80BDB600DC695F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A5D09991E80BDB600DC695F /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A1D93341EBBBF960051B39E /* PinAnnotationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinAnnotationController.swift; sourceTree = "<group>"; };
 		5A5D098F1E80BDB600DC695F /* Trails.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trails.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A5D09921E80BDB600DC695F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A5D09971E80BDB600DC695F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				5AAB2B6C1E956C5300C20044 /* ImageController.swift */,
 				5AAB2B6E1E956DB400C20044 /* DateHelper.swift */,
 				5AAD16921EB91A1800429256 /* LocationManager.swift */,
+				5A1D93341EBBBF960051B39E /* PinAnnotationController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				5AAD16931EB91A1800429256 /* LocationManager.swift in Sources */,
 				5AAD168D1EB7D1B700429256 /* MainCollectionTableViewCell.swift in Sources */,
 				5A5D09AF1E80D46400DC695F /* TrailsMainViewController.swift in Sources */,
+				5A1D93351EBBBF960051B39E /* PinAnnotationController.swift in Sources */,
 				5A5D09931E80BDB600DC695F /* AppDelegate.swift in Sources */,
 				5AAD16851EB3C03000429256 /* EventViewController.swift in Sources */,
 				5AAB2B691E956C1C00C20044 /* NetworkController.swift in Sources */,

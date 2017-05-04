@@ -19,6 +19,7 @@ class EventController {
     static let categoryKey = "c"
     static let imageKey = "image_sizes"
     static let imageSizes = "small,block100,large"
+    static let distanceKey = "within"
     static func fetchEvent(category: String, userLocation: String, completion: @escaping ([Event]) -> Void) {
         
         guard let url = baseURL else { completion([]) ; return }
@@ -39,18 +40,19 @@ class EventController {
             
             let events = eventsArray.flatMap({ Event(dictionary: $0) })
             
-            
-            for event in events {
-                guard let largeImageURL = event.largeImageURL, let smallImageURL = event.smallImageURL
-                    else { return }
-                
-                ImageController.image(forURL: largeImageURL, completion: { (image) in
-                    event.largeImage = image
-                })
-                ImageController.image(forURL: smallImageURL, completion: { (image) in
-                    event.smallImage = image
-                })
-            }
+//            
+//            for event in events {
+//                guard let largeImageURL = event.largeImageURL, let smallImageURL = event.smallImageURL
+//                    else {completion([]); return }
+//                
+//                ImageController.image(forURL: largeImageURL, completion: { (image) in
+//                    event.largeImage = image
+//                })
+//                ImageController.image(forURL: smallImageURL, completion: { (image) in
+//                    event.smallImage = image
+//                })
+//            }
+
             print(events.first?.venueAddress ?? "nothing there")
             completion(events)
             

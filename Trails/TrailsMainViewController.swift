@@ -9,9 +9,12 @@
 import UIKit
 import MapKit
 
-//MARK: -  protocol
+//MARK: -  protocol that handles the pin drops
 
-protocol HandleMapSearch: class { func dropPinZoomIn(_ placemark: MKPlacemark) }
+protocol HandleMapSearch: class { func dropPinZoomIn(_ placemark: MKPlacemark)
+    
+    func dropPinZoomIn(_ events: [Event])
+}
 
 class TrailsMainViewController: UIViewController {
     
@@ -21,6 +24,8 @@ class TrailsMainViewController: UIViewController {
     var selectedPin:MKPlacemark? = nil
     var menuIsShowing = false
     
+    var event: Event?
+    var events: [Event]?
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var profileMenuSideConstraint: NSLayoutConstraint!
     @IBOutlet weak var profileMenuView: UIView!
@@ -42,9 +47,10 @@ class TrailsMainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupLocationManager()
         sideMenu()
+        mapView.center.y = view.center.y + 500
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -101,6 +107,14 @@ class TrailsMainViewController: UIViewController {
         mapItem.openInMaps(launchOptions: launchOptions)
     }
     
+    // FIXME: - display selected pin information
+    //MARK: - displays detail information on the selected pin
+    func displayPinDetails() {
+        guard let selectedPin = selectedPin else { return }
+        let mapItem = MKMapItem(placemark: selectedPin)
+        
+    }
+    
 }
 
 //MARK: - extention for handleMapSearch protocol
@@ -119,6 +133,29 @@ extension TrailsMainViewController: HandleMapSearch {
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
         mapView.setRegion(region, animated: true)
+    }
+    func dropPinZoomIn(_ events: [Event]) {
+        
+        mapView.removeAnnotations(mapView.annotations)
+        for event in events {
+            guard let longitude = Double(event.longitude),
+                let latitude = Double(event.latitude)
+                else { return }
+            let annotation = MKPointAnnotation()
+            
+            let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+            selectedPin = MKPlacemark(coordinate: coordinate)
+            annotation.coordinate = coordinate
+            annotation.title = event.eventTitle
+            annotation.subtitle = "\(event.city) \(event.state)"
+            
+            
+            mapView.addAnnotation(annotation)
+//            let span = MKCoordinateSpanMake(0.05, 0.05)
+//            let region = MKCoordinateRegionMake(coordinate, span)
+//            mapView.setRegion(region, animated: true)
+        }
+        mapView.showAnnotations(mapView.annotations, animated: true)
     }
 }
 
@@ -139,7 +176,13 @@ extension TrailsMainViewController: MKMapViewDelegate {
         let smallSquare = CGSize(width: 30, height: 30)
         
         let button = UIButton(frame: CGRect(origin: CGPoint.zero, size: smallSquare))
-        button.setBackgroundImage(UIImage(named: "car"), for: .normal)
+        
+        if event?.smallImage != nil {
+            button.setBackgroundImage(event?.smallImage, for: .normal)
+        } else {
+            button.setBackgroundImage(UIImage(named: "car"), for: .normal)
+        }
+        
         button.addTarget(self, action: #selector(TrailsMainViewController.getDirections), for: .touchUpInside)
         pinView?.leftCalloutAccessoryView = button
         
@@ -148,7 +191,7 @@ extension TrailsMainViewController: MKMapViewDelegate {
     
     //MARK: -  future feature that allows the user to change their location by pressing longer on the screen
     // FIXME: - long press to change location doesn't work
-
+    
     func didLongPressMap(sender: UILongPressGestureRecognizer) {
         
         if sender.state == UIGestureRecognizerState.began {
