@@ -133,7 +133,7 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
         let height = self.view.frame.height
         
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
-            self.view.frame = CGRect(x: 0, y: self.halfView, width: width, height: height)
+            self.view.frame = CGRect(x: 0, y: self.fullView, width: width, height: height)
         })
         //        let collectionView = UIView.insertSubview
         //        collectionView.view.frame.height = 99
