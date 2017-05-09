@@ -118,16 +118,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Trails/NetworkController.swift"
-            timestampString = "515631067.129805"
+            filePath = "Trails/TrailsMainViewController.swift"
+            timestampString = "516063238.982063"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "url(byAdding:to:)"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "addPinDetailSheetView(event:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

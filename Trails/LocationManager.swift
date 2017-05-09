@@ -14,6 +14,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     static let shared = LocationManager()
     
+    var selectedPin:MKPlacemark? = nil
+    
     var locationMananger = CLLocationManager()
     var mapView = MKMapView()
     var cityName: String?

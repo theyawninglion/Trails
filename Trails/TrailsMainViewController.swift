@@ -20,28 +20,14 @@ class TrailsMainViewController: UIViewController {
     
     
     //MARK: - properties & outlets
-    let locationMananger = LocationManager.shared.locationMananger
-    var selectedPin:MKPlacemark? = nil
-    var menuIsShowing = false
-    
+    let locationManager = LocationManager.shared.locationMananger
     var event: Event?
     var events: [Event]?
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var profileMenuSideConstraint: NSLayoutConstraint!
-    @IBOutlet weak var profileMenuView: UIView!
+  
     
     //MARK: - actions
-    @IBAction func profileButtonTapped(_ sender: Any) {
-        
-        if menuIsShowing {
-            profileMenuSideConstraint.constant = -250
-            menuAnimation()
-        } else {
-            profileMenuSideConstraint.constant = 0
-            menuAnimation()
-        }
-        menuIsShowing = !menuIsShowing
-    }
+
     
     //MARK: -  view load out
     
@@ -49,7 +35,6 @@ class TrailsMainViewController: UIViewController {
         super.viewDidLoad()
         
         setupLocationManager()
-        sideMenu()
         mapView.center.y = view.center.y + 500
     }
     
@@ -57,14 +42,11 @@ class TrailsMainViewController: UIViewController {
         super.viewDidAppear(animated)
         
         addBottomSheetView()
+        //        addPinDetailSheetView()
     }
     
-    //MARK: - animation
-    func menuAnimation() {
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-    }
+   
+
     
     //MARK: - bottom searchbar sliding sheet view
     func addBottomSheetView() {
@@ -83,57 +65,86 @@ class TrailsMainViewController: UIViewController {
         bottomSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
+    func addPinDetailSheetView(event: Event) {
+        
+        let storyboard = UIStoryboard(name: "Detail", bundle: nil)
+        guard let pinDetailSheetVC = storyboard.instantiateViewController(withIdentifier: "DetailVC") as? DetailTableViewController
+            else { return }
+        pinDetailSheetVC.event = event
+
+                pinDetailSheetVC.loadView()
+                pinDetailSheetVC.viewDidLoad()
+                self.addChildViewController(pinDetailSheetVC)
+                mapView.addSubview(pinDetailSheetVC.view)
+                pinDetailSheetVC.didMove(toParentViewController: self)
+        
+                let height = view.frame.height
+                let width = view.frame.width
+                pinDetailSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY - 350, width: width, height: height)
+    }
+    func addApplePinDetailSheetView(placemark: MKPlacemark) {
+        
+        let storyboard = UIStoryboard(name: "Detail", bundle: nil)
+        guard let pinDetailSheetVC = storyboard.instantiateViewController(withIdentifier: "DetailVC") as? DetailTableViewController
+            else { return }
+        pinDetailSheetVC.placemark = placemark
+                pinDetailSheetVC.loadView()
+                pinDetailSheetVC.viewDidLoad()
+                self.addChildViewController(pinDetailSheetVC)
+                mapView.addSubview(pinDetailSheetVC.view)
+                pinDetailSheetVC.didMove(toParentViewController: self)
+        
+                let height = view.frame.height
+                let width = view.frame.width
+                pinDetailSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY - 240, width: width, height: height)
+    }
+
+    
     //MARK: - Location Manager
     func setupLocationManager() {
-        locationMananger.delegate = LocationManager.shared
-        locationMananger.desiredAccuracy = kCLLocationAccuracyBest
-        locationMananger.requestWhenInUseAuthorization()
-        locationMananger.requestLocation()
-    }
-    
-    //MARK: - initial setup of the side menu
-    func sideMenu() {
-        profileMenuSideConstraint.constant = -250
-        profileMenuView.layer.opacity = 0.9
-        profileMenuView.layer.shadowOpacity = 0.2
-        profileMenuView.layer.shadowRadius = 3
-    }
-    
-    //MARK: - opens apple maps for selected pin
-    func getDirections() {
-        guard let selectedPin = selectedPin else { return }
-        let mapItem = MKMapItem(placemark: selectedPin)
-        let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
-        mapItem.openInMaps(launchOptions: launchOptions)
-    }
-    
-    // FIXME: - display selected pin information
-    //MARK: - displays detail information on the selected pin
-    func displayPinDetails() {
-        guard let selectedPin = selectedPin else { return }
-        let mapItem = MKMapItem(placemark: selectedPin)
         
+        locationManager.delegate = LocationManager.shared
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
     }
-    
+
+    //MARK: - opens apple maps for selected pin
+    func presentDetailVC() {
+        
+        if let annotation = mapView.selectedAnnotations.first as? MyMKPointAnnotation,
+            let event = annotation.event {
+            
+            addPinDetailSheetView(event: event)
+        }
+
+        else if let appleAnnotation = mapView.selectedAnnotations.first as? MyMKPointAnnotation,
+            let placemark = appleAnnotation.placemark {
+            addApplePinDetailSheetView(placemark: placemark)
+            
+        }
+    }
 }
 
 //MARK: - extention for handleMapSearch protocol
 extension TrailsMainViewController: HandleMapSearch {
     func dropPinZoomIn(_ placemark: MKPlacemark) {
-        
-        selectedPin = placemark
+       
+        LocationManager.shared.selectedPin = placemark
         mapView.removeAnnotations(mapView.annotations)
-        let annotation = MKPointAnnotation()
+        let annotation = MyMKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
         if let city = placemark.locality, let state = placemark.administrativeArea {
             annotation.subtitle = "\(city) \(state)"
         }
+        annotation.placemark = placemark
         mapView.addAnnotation(annotation)
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
         mapView.setRegion(region, animated: true)
     }
+    
     func dropPinZoomIn(_ events: [Event]) {
         
         mapView.removeAnnotations(mapView.annotations)
@@ -141,14 +152,14 @@ extension TrailsMainViewController: HandleMapSearch {
             guard let longitude = Double(event.longitude),
                 let latitude = Double(event.latitude)
                 else { return }
-            let annotation = MKPointAnnotation()
+            let annotation = MyMKPointAnnotation()
             
             let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
-            selectedPin = MKPlacemark(coordinate: coordinate)
+            LocationManager.shared.selectedPin = MKPlacemark(coordinate: coordinate)
             annotation.coordinate = coordinate
             annotation.title = event.eventTitle
             annotation.subtitle = "\(event.city) \(event.state)"
-            
+            annotation.event = event
             
             mapView.addAnnotation(annotation)
         }
@@ -180,73 +191,14 @@ extension TrailsMainViewController: MKMapViewDelegate {
             button.setBackgroundImage(UIImage(named: "car"), for: .normal)
         }
         
-        button.addTarget(self, action: #selector(TrailsMainViewController.getDirections), for: .touchUpInside)
+        button.addTarget(self, action: #selector(TrailsMainViewController.presentDetailVC), for: .touchUpInside)
         pinView?.leftCalloutAccessoryView = button
         
         return pinView
     }
-    
-    //MARK: -  future feature that allows the user to change their location by pressing longer on the screen
-    // FIXME: - long press to change location doesn't work
-    
-    func didLongPressMap(sender: UILongPressGestureRecognizer) {
-        
-        if sender.state == UIGestureRecognizerState.began {
-            let touchPoint = sender.location(in: mapView)
-            let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: self.mapView)
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = touchCoordinate
-            annotation.title = "Your position"
-            mapView.addAnnotation(annotation) //drops the pin
-            print("lat:  \(touchCoordinate.latitude)")
-            let num = touchCoordinate.latitude as NSNumber
-            let formatter = NumberFormatter()
-            formatter.maximumFractionDigits = 4
-            formatter.minimumFractionDigits = 4
-            let str = formatter.string(from: num)
-            print("long: \(touchCoordinate.longitude)")
-            let num1 = touchCoordinate.longitude as NSNumber
-            let formatter1 = NumberFormatter()
-            formatter1.maximumFractionDigits = 4
-            formatter1.minimumFractionDigits = 4
-            let str1 = formatter1.string(from: num1)
-            //            adressLoLa.text = "\(num),\(num1)"
-            
-            // Add below code to get address for touch coordinates.
-            let geoCoder = CLGeocoder()
-            let location = CLLocation(latitude: touchCoordinate.latitude, longitude: touchCoordinate.longitude)
-            
-            geoCoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
-                guard let addressDict = placemarks?[0].addressDictionary else {
-                    return
-                }
-                
-                // Print each key-value pair in a new row
-                addressDict.forEach { print($0) }
-                
-                // Print fully formatted address
-                if let formattedAddress = addressDict["FormattedAddressLines"] as? [String] {
-                    print(formattedAddress.joined(separator: ", "))
-                }
-                
-                // Access each element manually
-                if let locationName = addressDict["Name"] as? String {
-                    print(locationName)
-                }
-                if let street = addressDict["Thoroughfare"] as? String {
-                    print(street)
-                }
-                if let city = addressDict["City"] as? String {
-                    print(city)
-                }
-                if let zip = addressDict["ZIP"] as? String {
-                    print(zip)
-                }
-                if let country = addressDict["Country"] as? String {
-                    print(country)
-                }
-            })
-        }
-    }
-    
+}
+
+class MyMKPointAnnotation: MKPointAnnotation {
+    var event: Event?
+    var placemark: MKPlacemark?
 }

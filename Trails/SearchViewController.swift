@@ -9,26 +9,23 @@
 import UIKit
 import MapKit
 
-class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, UISearchBarDelegate, UISearchResultsUpdating, UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    static let shared = SearchViewController()
+class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
     var collectionLabels = [String]()
     
     @IBOutlet weak var collectionView: UICollectionView!
-    //    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     //MARK: - bottomsheet properties
     
     var searchController = UISearchController(searchResultsController: nil)
     weak var handleMapSearchDelegate: HandleMapSearch?
     var matchingItems: [MKMapItem] = []
-//    var events: [Event] = []
     var mapView: MKMapView?
     let fullView: CGFloat = 100
     var halfView: CGFloat = 275
     var bottomView: CGFloat {
-        return UIScreen.main.bounds.height - 108
+        return UIScreen.main.bounds.height - 64
     }
     
     
@@ -38,7 +35,6 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
         super.viewDidLoad()
         
         gesture()
-        configureSearchController()
         setupTableView()
         setupCollectionView()
     }
@@ -131,45 +127,28 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
         
         let width = self.view.frame.width
         let height = self.view.frame.height
-        
+        searchBar.showsCancelButton = true
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
             self.view.frame = CGRect(x: 0, y: self.fullView, width: width, height: height)
         })
-        //        let collectionView = UIView.insertSubview
-        //        collectionView.view.frame.height = 99
+        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         let width = self.view.frame.width
         let height = self.view.frame.height
-        
+        searchBar.showsCancelButton = false
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
             self.view.frame = CGRect(x: 0, y: self.bottomView, width: width, height: height)
         })
+        searchBar.resignFirstResponder()
     }
     
-    func configureSearchController() {
-        
-        let searchBar = searchController.searchBar
-        searchBar.sizeToFit()
-        searchBar.placeholder = "Search for places"
-        searchBar.delegate = self
-        searchBar.isTranslucent = true
-        
-        tableView.tableHeaderView = searchBar
-        
-        searchController.searchResultsUpdater = self
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = false
-        
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         guard let mapViews = mapView,
-            let searchBarText = searchController.searchBar.text
+            let searchBarText = searchBar.text
             else { return }
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = searchBarText
@@ -211,11 +190,12 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
         
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let searchCell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath)
         let selectedItem = matchingItems[indexPath.row].placemark
@@ -227,7 +207,7 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
         
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
         handleMapSearchDelegate?.dropPinZoomIn(selectedItem)
         
@@ -290,10 +270,11 @@ class SearchViewController: UITableViewController, UIGestureRecognizerDelegate, 
         
         let width = self.view.frame.width
         let height = self.view.frame.height
-        
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
-            self.view.frame = CGRect(x: 0, y: self.halfView, width: width, height: height)
+            self.view.frame = CGRect(x: 0, y: self.bottomView, width: width, height: height)
         })
+        self.dismiss(animated: true, completion: nil)
+        
 
 
     }

@@ -15,7 +15,7 @@ class EventController {
     static let securityKey = "zHKbcM58mVrqnf8t"
     static let timeKey = "date"
     static let time = "Today"
-    static let locationKey = "locatoin"
+    static let locationKey = "location"
     static let categoryKey = "c"
     static let imageKey = "image_sizes"
     static let imageSizes = "small,block100,large"

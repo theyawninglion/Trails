@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A1D93351EBBBF960051B39E /* PinAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1D93341EBBBF960051B39E /* PinAnnotationController.swift */; };
 		5A5D09931E80BDB600DC695F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5D09921E80BDB600DC695F /* AppDelegate.swift */; };
 		5A5D09981E80BDB600DC695F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A5D09961E80BDB600DC695F /* Main.storyboard */; };
 		5A5D099A1E80BDB600DC695F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A5D09991E80BDB600DC695F /* Assets.xcassets */; };
@@ -23,15 +22,17 @@
 		5AAB2B6D1E956C5300C20044 /* ImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAB2B6C1E956C5300C20044 /* ImageController.swift */; };
 		5AAB2B6F1E956DB400C20044 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAB2B6E1E956DB400C20044 /* DateHelper.swift */; };
 		5AAB2B711E95814700C20044 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAB2B701E95814700C20044 /* EventController.swift */; };
-		5AAD16851EB3C03000429256 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAD16841EB3C03000429256 /* EventViewController.swift */; };
-		5AAD16871EB3C04E00429256 /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AAD16861EB3C04E00429256 /* Event.storyboard */; };
+		5AAD16871EB3C04E00429256 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AAD16861EB3C04E00429256 /* Detail.storyboard */; };
 		5AAD168D1EB7D1B700429256 /* MainCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAD168C1EB7D1B700429256 /* MainCollectionTableViewCell.swift */; };
 		5AAD16911EB7DFDD00429256 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AAD16901EB7DFDD00429256 /* Search.storyboard */; };
 		5AAD16931EB91A1800429256 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAD16921EB91A1800429256 /* LocationManager.swift */; };
+		5AB944411EBCE5A300AE132E /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB944401EBCE5A300AE132E /* DetailTableViewController.swift */; };
+		5AB944431EBCE86300AE132E /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB944421EBCE86300AE132E /* AddressTableViewCell.swift */; };
+		5AB944451EBCEA5700AE132E /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB944441EBCEA5700AE132E /* DescriptionTableViewCell.swift */; };
+		5AB944781EC2882800AE132E /* black-circle-close-button-png-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AB944771EC2882800AE132E /* black-circle-close-button-png-5.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5A1D93341EBBBF960051B39E /* PinAnnotationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinAnnotationController.swift; sourceTree = "<group>"; };
 		5A5D098F1E80BDB600DC695F /* Trails.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trails.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A5D09921E80BDB600DC695F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A5D09971E80BDB600DC695F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -49,11 +50,14 @@
 		5AAB2B6C1E956C5300C20044 /* ImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageController.swift; sourceTree = "<group>"; };
 		5AAB2B6E1E956DB400C20044 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		5AAB2B701E95814700C20044 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
-		5AAD16841EB3C03000429256 /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
-		5AAD16861EB3C04E00429256 /* Event.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Event.storyboard; sourceTree = "<group>"; };
+		5AAD16861EB3C04E00429256 /* Detail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
 		5AAD168C1EB7D1B700429256 /* MainCollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		5AAD16901EB7DFDD00429256 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		5AAD16921EB91A1800429256 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		5AB944401EBCE5A300AE132E /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
+		5AB944421EBCE86300AE132E /* AddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
+		5AB944441EBCEA5700AE132E /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		5AB944771EC2882800AE132E /* black-circle-close-button-png-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "black-circle-close-button-png-5.png"; path = "../../../black-circle-close-button-png-5.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 				5A5D09B41E80E7AF00DC695F /* trailsIcon */,
 				5A5D09B21E80E6EE00DC695F /* trailsLaunchScreen.png */,
 				5A5D09AB1E80CE8200DC695F /* profileIcon.png */,
+				5AB944771EC2882800AE132E /* black-circle-close-button-png-5.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -117,7 +122,7 @@
 			children = (
 				5A5D09961E80BDB600DC695F /* Main.storyboard */,
 				5AAD16901EB7DFDD00429256 /* Search.storyboard */,
-				5AAD16861EB3C04E00429256 /* Event.storyboard */,
+				5AAD16861EB3C04E00429256 /* Detail.storyboard */,
 				5A5D099B1E80BDB600DC695F /* LaunchScreen.storyboard */,
 			);
 			name = StoryBoard;
@@ -130,7 +135,6 @@
 				5AAB2B6C1E956C5300C20044 /* ImageController.swift */,
 				5AAB2B6E1E956DB400C20044 /* DateHelper.swift */,
 				5AAD16921EB91A1800429256 /* LocationManager.swift */,
-				5A1D93341EBBBF960051B39E /* PinAnnotationController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -148,7 +152,7 @@
 			children = (
 				5A5D09AE1E80D46400DC695F /* TrailsMainViewController.swift */,
 				5AAB2B3D1E92E05500C20044 /* SearchViewController.swift */,
-				5AAD16841EB3C03000429256 /* EventViewController.swift */,
+				5AB944401EBCE5A300AE132E /* DetailTableViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -157,6 +161,8 @@
 			isa = PBXGroup;
 			children = (
 				5AAD168C1EB7D1B700429256 /* MainCollectionTableViewCell.swift */,
+				5AB944421EBCE86300AE132E /* AddressTableViewCell.swift */,
+				5AB944441EBCEA5700AE132E /* DescriptionTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -242,12 +248,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AB944781EC2882800AE132E /* black-circle-close-button-png-5.png in Resources */,
 				5A5D09B31E80E6EE00DC695F /* trailsLaunchScreen.png in Resources */,
 				5A5D09AC1E80CE8200DC695F /* profileIcon.png in Resources */,
 				5A5D09B51E80E7AF00DC695F /* trailsIcon in Resources */,
 				5A5D099D1E80BDB600DC695F /* LaunchScreen.storyboard in Resources */,
 				5A5D099A1E80BDB600DC695F /* Assets.xcassets in Resources */,
-				5AAD16871EB3C04E00429256 /* Event.storyboard in Resources */,
+				5AAD16871EB3C04E00429256 /* Detail.storyboard in Resources */,
 				5AAD16911EB7DFDD00429256 /* Search.storyboard in Resources */,
 				5A5D09981E80BDB600DC695F /* Main.storyboard in Resources */,
 			);
@@ -260,18 +267,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AB944411EBCE5A300AE132E /* DetailTableViewController.swift in Sources */,
 				5AAB2B6D1E956C5300C20044 /* ImageController.swift in Sources */,
 				5AAB2B6F1E956DB400C20044 /* DateHelper.swift in Sources */,
 				5AAB2B711E95814700C20044 /* EventController.swift in Sources */,
 				5AAD16931EB91A1800429256 /* LocationManager.swift in Sources */,
 				5AAD168D1EB7D1B700429256 /* MainCollectionTableViewCell.swift in Sources */,
 				5A5D09AF1E80D46400DC695F /* TrailsMainViewController.swift in Sources */,
-				5A1D93351EBBBF960051B39E /* PinAnnotationController.swift in Sources */,
 				5A5D09931E80BDB600DC695F /* AppDelegate.swift in Sources */,
-				5AAD16851EB3C03000429256 /* EventViewController.swift in Sources */,
 				5AAB2B691E956C1C00C20044 /* NetworkController.swift in Sources */,
 				5AAB2B3E1E92E05500C20044 /* SearchViewController.swift in Sources */,
 				5AAB2B641E9349EE00C20044 /* Event.swift in Sources */,
+				5AB944451EBCEA5700AE132E /* DescriptionTableViewCell.swift in Sources */,
+				5AB944431EBCE86300AE132E /* AddressTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
