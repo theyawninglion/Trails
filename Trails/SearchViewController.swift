@@ -15,6 +15,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     //MARK: - bottomsheet properties
     
@@ -24,6 +25,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     var mapView: MKMapView?
     let fullView: CGFloat = 100
     var halfView: CGFloat = 275
+    var hasKeyBoard: Bool = false
     var bottomView: CGFloat {
         return UIScreen.main.bounds.height - 64
     }
@@ -37,6 +39,16 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         gesture()
         setupTableView()
         setupCollectionView()
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyBoard))
+//        view.addGestureRecognizer(tap)
+
+    }
+    
+    func dismissKeyBoard() {
+        if hasKeyBoard == true {
+            searchBar.endEditing(true)
+            hasKeyBoard = false
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +85,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         view.addGestureRecognizer(gesture)
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
+       
     }
     
     func panGesture(recognizer: UIPanGestureRecognizer) {
@@ -103,6 +116,10 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
                 }
             })
         }
+        if hasKeyBoard == true {
+            searchBar.endEditing(true)
+            hasKeyBoard = false
+        }
     }
     
     
@@ -118,11 +135,12 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         } else {
             tableView.isScrollEnabled = true
         }
+        
         return false
     }
     
     //MARK: - SearchController
-    
+   
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
         let width = self.view.frame.width
@@ -131,7 +149,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
             self.view.frame = CGRect(x: 0, y: self.fullView, width: width, height: height)
         })
-        
+        hasKeyBoard = true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -190,6 +208,13 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if hasKeyBoard == true {
+            searchBar.endEditing(true)
+            hasKeyBoard = false
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
@@ -218,6 +243,10 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
             self.view.frame = CGRect(x: 0, y: self.bottomView, width: width, height: height)
         })
         dismiss(animated: true, completion: nil)
+        if hasKeyBoard == true {
+            searchBar.endEditing(true)
+            hasKeyBoard = false
+        }
     }
     
     //MARK: - collectionview dataSource
@@ -228,13 +257,11 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return collectionLabels.count
     }
     
@@ -249,8 +276,14 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        guard let location = LocationManager.shared.zipCode
-            else { return }
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
+            self.view.frame = CGRect(x: 0, y: self.bottomView, width: width, height: height)
+            self.searchBar.endEditing(true)
+        })
+        
+        
         
         // calculation to find the current width of map in miles at the time that the user searches a catagory
         
@@ -262,21 +295,14 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         
         let distance = "\(milesWide + 10)"
         DispatchQueue.main.async {
+            guard let location = LocationManager.shared.zipCode
+                else { return print("no location")}
             EventController.fetchEvent(category: self.collectionLabels[indexPath.row], userLocation: location, distance: distance, completion: { events in
            self.handleMapSearchDelegate?.dropPinZoomIn(events)
             })
 
         }
         
-        let width = self.view.frame.width
-        let height = self.view.frame.height
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
-            self.view.frame = CGRect(x: 0, y: self.bottomView, width: width, height: height)
-        })
-        self.dismiss(animated: true, completion: nil)
-        
-
-
     }
 }
 

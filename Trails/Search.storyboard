@@ -117,6 +117,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="g5V-Vx-mfP" id="phM-ZY-jfV"/>
+                        <outlet property="searchBar" destination="yuR-ky-NFR" id="Eo3-Ld-ppl"/>
                         <outlet property="tableView" destination="RJf-gp-vOb" id="pG8-Ji-pMw"/>
                     </connections>
                 </viewController>

@@ -24,10 +24,10 @@ class TrailsMainViewController: UIViewController {
     var event: Event?
     var events: [Event]?
     @IBOutlet weak var mapView: MKMapView!
-  
+    
     
     //MARK: - actions
-
+    
     
     //MARK: -  view load out
     
@@ -36,8 +36,10 @@ class TrailsMainViewController: UIViewController {
         
         setupLocationManager()
         mapView.center.y = view.center.y + 500
+
     }
     
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -45,8 +47,8 @@ class TrailsMainViewController: UIViewController {
         //        addPinDetailSheetView()
     }
     
-   
-
+    
+    
     
     //MARK: - bottom searchbar sliding sheet view
     func addBottomSheetView() {
@@ -71,16 +73,16 @@ class TrailsMainViewController: UIViewController {
         guard let pinDetailSheetVC = storyboard.instantiateViewController(withIdentifier: "DetailVC") as? DetailTableViewController
             else { return }
         pinDetailSheetVC.event = event
-
-                pinDetailSheetVC.loadView()
-                pinDetailSheetVC.viewDidLoad()
-                self.addChildViewController(pinDetailSheetVC)
-                mapView.addSubview(pinDetailSheetVC.view)
-                pinDetailSheetVC.didMove(toParentViewController: self)
         
-                let height = view.frame.height
-                let width = view.frame.width
-                pinDetailSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY - 350, width: width, height: height)
+        pinDetailSheetVC.loadView()
+        pinDetailSheetVC.viewDidLoad()
+        self.addChildViewController(pinDetailSheetVC)
+        mapView.addSubview(pinDetailSheetVC.view)
+        pinDetailSheetVC.didMove(toParentViewController: self)
+        
+        let height = view.frame.height
+        let width = view.frame.width
+        pinDetailSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY - 350, width: width, height: height)
     }
     func addApplePinDetailSheetView(placemark: MKPlacemark) {
         
@@ -88,17 +90,17 @@ class TrailsMainViewController: UIViewController {
         guard let pinDetailSheetVC = storyboard.instantiateViewController(withIdentifier: "DetailVC") as? DetailTableViewController
             else { return }
         pinDetailSheetVC.placemark = placemark
-                pinDetailSheetVC.loadView()
-                pinDetailSheetVC.viewDidLoad()
-                self.addChildViewController(pinDetailSheetVC)
-                mapView.addSubview(pinDetailSheetVC.view)
-                pinDetailSheetVC.didMove(toParentViewController: self)
+        pinDetailSheetVC.loadView()
+        pinDetailSheetVC.viewDidLoad()
+        self.addChildViewController(pinDetailSheetVC)
+        mapView.addSubview(pinDetailSheetVC.view)
+        pinDetailSheetVC.didMove(toParentViewController: self)
         
-                let height = view.frame.height
-                let width = view.frame.width
-                pinDetailSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY - 240, width: width, height: height)
+        let height = view.frame.height
+        let width = view.frame.width
+        pinDetailSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY - 240, width: width, height: height)
     }
-
+    
     
     //MARK: - Location Manager
     func setupLocationManager() {
@@ -108,7 +110,7 @@ class TrailsMainViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
     }
-
+    
     //MARK: - opens apple maps for selected pin
     func presentDetailVC() {
         
@@ -117,7 +119,7 @@ class TrailsMainViewController: UIViewController {
             
             addPinDetailSheetView(event: event)
         }
-
+            
         else if let appleAnnotation = mapView.selectedAnnotations.first as? MyMKPointAnnotation,
             let placemark = appleAnnotation.placemark {
             addApplePinDetailSheetView(placemark: placemark)
@@ -129,7 +131,7 @@ class TrailsMainViewController: UIViewController {
 //MARK: - extention for handleMapSearch protocol
 extension TrailsMainViewController: HandleMapSearch {
     func dropPinZoomIn(_ placemark: MKPlacemark) {
-       
+        
         LocationManager.shared.selectedPin = placemark
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MyMKPointAnnotation()

@@ -30,6 +30,7 @@
 		5AB944431EBCE86300AE132E /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB944421EBCE86300AE132E /* AddressTableViewCell.swift */; };
 		5AB944451EBCEA5700AE132E /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB944441EBCEA5700AE132E /* DescriptionTableViewCell.swift */; };
 		5AB944781EC2882800AE132E /* black-circle-close-button-png-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AB944771EC2882800AE132E /* black-circle-close-button-png-5.png */; };
+		5AB9447A1EC2992A00AE132E /* DismissKeyBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB944791EC2992A00AE132E /* DismissKeyBoardController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		5AB944421EBCE86300AE132E /* AddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
 		5AB944441EBCEA5700AE132E /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		5AB944771EC2882800AE132E /* black-circle-close-button-png-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "black-circle-close-button-png-5.png"; path = "../../../black-circle-close-button-png-5.png"; sourceTree = "<group>"; };
+		5AB944791EC2992A00AE132E /* DismissKeyBoardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissKeyBoardController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				5AAB2B6C1E956C5300C20044 /* ImageController.swift */,
 				5AAB2B6E1E956DB400C20044 /* DateHelper.swift */,
 				5AAD16921EB91A1800429256 /* LocationManager.swift */,
+				5AB944791EC2992A00AE132E /* DismissKeyBoardController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				5AB944411EBCE5A300AE132E /* DetailTableViewController.swift in Sources */,
 				5AAB2B6D1E956C5300C20044 /* ImageController.swift in Sources */,
 				5AAB2B6F1E956DB400C20044 /* DateHelper.swift in Sources */,
+				5AB9447A1EC2992A00AE132E /* DismissKeyBoardController.swift in Sources */,
 				5AAB2B711E95814700C20044 /* EventController.swift in Sources */,
 				5AAD16931EB91A1800429256 /* LocationManager.swift in Sources */,
 				5AAD168D1EB7D1B700429256 /* MainCollectionTableViewCell.swift in Sources */,

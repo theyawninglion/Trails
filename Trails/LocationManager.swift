@@ -34,39 +34,42 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             mapView.setRegion(region, animated: true)
             
             let geoCoder = CLGeocoder()
-            geoCoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
-                guard let addressDict = placemarks?[0].addressDictionary else {
-                    return
-                }
+            DispatchQueue.main.async {
                 
-                // Print each key-value pair in a new row
-                addressDict.forEach { print($0) }
+                geoCoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
+                    guard let addressDict = placemarks?[0].addressDictionary else {
+                        return
+                    }
+                    
+                    // Print each key-value pair in a new row
+                    addressDict.forEach { print($0) }
+                    
+                    // Print fully formatted address
+                    if let formattedAddress = addressDict["FormattedAddressLines"] as? [String] {
+                        print(formattedAddress.joined(separator: ", "))
+                    }
+                    
+                    // Access each element manually
+                    if let locationName = addressDict["Name"] as? String {
+                        print(locationName)
+                    }
+                    if let street = addressDict["Thoroughfare"] as? String {
+                        print(street)
+                    }
+                    if let city = addressDict["City"] as? String {
+                        self.cityName = city
+                        print(city)
+                    }
+                    if let zip = addressDict["ZIP"] as? String {
+                        self.zipCode = zip
+                        print(zip)
+                    }
+                    if let country = addressDict["Country"] as? String {
+                        print(country)
+                    }
+                })
                 
-                // Print fully formatted address
-                if let formattedAddress = addressDict["FormattedAddressLines"] as? [String] {
-                    print(formattedAddress.joined(separator: ", "))
-                }
-                
-                // Access each element manually
-                if let locationName = addressDict["Name"] as? String {
-                    print(locationName)
-                }
-                if let street = addressDict["Thoroughfare"] as? String {
-                    print(street)
-                }
-                if let city = addressDict["City"] as? String {
-                    self.cityName = city
-                    print(city)
-                }
-                if let zip = addressDict["ZIP"] as? String {
-                    self.zipCode = zip
-                    print(zip)
-                }
-                if let country = addressDict["Country"] as? String {
-                    print(country)
-                }
-            })
-            
+            }
         }
     }
     
