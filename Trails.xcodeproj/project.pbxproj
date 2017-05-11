@@ -29,6 +29,7 @@
 		5AB944781EC2882800AE132E /* black-circle-close-button-png-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AB944771EC2882800AE132E /* black-circle-close-button-png-5.png */; };
 		5AB9447A1EC2992A00AE132E /* DismissKeyBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB944791EC2992A00AE132E /* DismissKeyBoardController.swift */; };
 		5AB9447C1EC37CD000AE132E /* BirdIcon in Resources */ = {isa = PBXBuildFile; fileRef = 5AB9447B1EC37CD000AE132E /* BirdIcon */; };
+		5AB9447E1EC50FCB00AE132E /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9447D1EC50FCB00AE132E /* Formatters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		5AB944771EC2882800AE132E /* black-circle-close-button-png-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "black-circle-close-button-png-5.png"; path = "../../../black-circle-close-button-png-5.png"; sourceTree = "<group>"; };
 		5AB944791EC2992A00AE132E /* DismissKeyBoardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissKeyBoardController.swift; sourceTree = "<group>"; };
 		5AB9447B1EC37CD000AE132E /* BirdIcon */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BirdIcon; path = ../../../../Documents/BirdIcon; sourceTree = "<group>"; };
+		5AB9447D1EC50FCB00AE132E /* Formatters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				5AAB2B6E1E956DB400C20044 /* DateHelper.swift */,
 				5AAD16921EB91A1800429256 /* LocationManager.swift */,
 				5AB944791EC2992A00AE132E /* DismissKeyBoardController.swift */,
+				5AB9447D1EC50FCB00AE132E /* Formatters.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				5AB944411EBCE5A300AE132E /* DetailTableViewController.swift in Sources */,
 				5AAB2B6D1E956C5300C20044 /* ImageController.swift in Sources */,
 				5AAB2B6F1E956DB400C20044 /* DateHelper.swift in Sources */,
+				5AB9447E1EC50FCB00AE132E /* Formatters.swift in Sources */,
 				5AB9447A1EC2992A00AE132E /* DismissKeyBoardController.swift in Sources */,
 				5AAB2B711E95814700C20044 /* EventController.swift in Sources */,
 				5AAD16931EB91A1800429256 /* LocationManager.swift in Sources */,

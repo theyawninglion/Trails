@@ -9,12 +9,14 @@
 import UIKit
 import MapKit
 
-class DetailTableViewController: UIViewController, UIGestureRecognizerDelegate {
+class DetailTableViewController: UITableViewController, UIGestureRecognizerDelegate {
 
-    @IBOutlet weak var eventTitleLabel: UILabel!
+    
+    @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var cityStateLabel: UILabel!
-
+    
+    @IBOutlet weak var eventTitleLabel: UILabel!
     @IBOutlet weak var startTextView: UITextView!
     @IBOutlet weak var descriptionTextView: UITextView!
     
@@ -36,7 +38,7 @@ class DetailTableViewController: UIViewController, UIGestureRecognizerDelegate {
     }
  
     
-    let tableView = UITableView()
+    
     let fullView: CGFloat = 100
     var halfView: CGFloat = 275
     var closeView: CGFloat {
@@ -57,9 +59,14 @@ class DetailTableViewController: UIViewController, UIGestureRecognizerDelegate {
 
     }
     
-    func updateViews() {
-        
+    //MARK: -  view
     
+    func updateViews() {
+        view.layer.cornerRadius = 10
+        view.clipsToBounds = true
+        goButton.layer.cornerRadius = 10
+        goButton.clipsToBounds = true
+        
         if self.placemark != nil {
             guard let placemark = placemark else { return }
             eventTitleLabel.text = placemark.name
@@ -69,33 +76,57 @@ class DetailTableViewController: UIViewController, UIGestureRecognizerDelegate {
             let address = placemark.addressDictionary?.first?.value
                 else { return }
             addressLabel.text = "\(address)"
-            cityStateLabel.text = "\(city), \(state) \(zipcode)"
+            cityStateLabel.text = "\(city) \(state) \(zipcode)"
             startTextView.text = ""
             descriptionTextView.text = ""
             
         } else {
+            
+            var address: String
             guard let event = event else { return }
-        
             eventTitleLabel.text = event.eventTitle
-            addressLabel.text = event.venueAddress
-            cityStateLabel.text = "\(event.city) \(event.state)"
+            if event.venueAddress == nil {
+                address = "\(event.longitude) \(event.longitude)"
+            } else {
+                guard let venueAddress = event.venueAddress else {
+                    return
+                }
+                address = venueAddress
+            }
+            addressLabel.text = address
+            cityStateLabel.text = "\(event.city) \(event.state) \(event.postalCode)"
             var endTime = ""
             
             if event.stopTime != nil {
-                endTime = "Ends:\(event.stopTime ?? "")"
+                endTime = "Ends: \(event.stopTime ?? "")"
             }
-            startTextView.text = "Starts:\(event.startTime)\n\(endTime)"
-            descriptionTextView.text = event.description
+            startTextView.text = "Starts: \(event.startTime)\n\(endTime)"
+            descriptionTextView.text = "At: \(event.venueName)\n\(event.description ?? "")\n\(event.eventURL)\n\(event.venueURL)"
         }
-        
-//        let width = self.view.frame.width
-//        let height = self.view.frame.height
-//        
-//        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
-//            self.view.frame = CGRect(x: 0, y: self.halfView, width: width, height: height)
-//        })
-        
     }
+    
+    //MARK: - tableview datasource
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var height: CGFloat = UITableViewAutomaticDimension
+        
+        switch indexPath.row {
+        case 0 :
+            height = eventTitleLabel.frame.height + 40
+            return height
+        case 1:
+            height = 123
+            return height
+        case 2 :
+            height = descriptionTextView.frame.height
+            return height
+            
+        default:
+        return height
+        }
+    }
+    
+    //MARK: -  pan gesture
     
     func gesture() {
         

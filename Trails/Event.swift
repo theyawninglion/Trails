@@ -15,6 +15,7 @@ class Event {
     
     private let latitudeKey = "latitude"
     private let longitudeKey = "longitude"
+    private let postalCodeKey = "postal_code"
     private let eventURLKey = "url"
     private let cityKey = "city_name"
     private let stateKey = "region_abbr"
@@ -37,6 +38,7 @@ class Event {
     
     let latitude: String
     let longitude: String
+    let postalCode: String
     let eventURL: String
     let city: String
     let state: String
@@ -45,7 +47,7 @@ class Event {
     let stopTime: String?
     let description: String?
     let eventTitle: String
-    var venueAddress: String
+    var venueAddress: String?
     let venueName: String
     let venueURL: String
     
@@ -61,13 +63,13 @@ class Event {
         
         guard let latitude = dictionary[latitudeKey] as? String,
             let longitude = dictionary[longitudeKey] as? String,
+            let postalCode = dictionary[postalCodeKey] as? String,
             let eventURL = dictionary[eventURLKey] as? String,
             let city = dictionary[cityKey] as? String,
             let state = dictionary[stateKey] as? String,
             let country = dictionary[countryKey] as? String,
             let startTime = dictionary[startTimeKey] as? String,
             let eventTitle = dictionary[eventTitleKey] as? String,
-            let venueAddress =  dictionary[venueAddressKey] as? String,
             let venueName = dictionary[venueNameKey] as? String,
             let venueURL = dictionary[venueURLKey] as? String
             
@@ -77,18 +79,28 @@ class Event {
         let largeImageDictionary = imageDictionary?[largeImageDictionaryKey] as? [String:Any]
         let smallImageDictionary = imageDictionary?[smallImageDictionaryKey] as? [String:Any]
         
+        let formattedStart = Formatters.formatDate(startTime)
+        let stopTime = dictionary[stopTimeKey] as? String
+        var formattedStop: String = ""
+        if stopTime != nil {
+            guard let stopTime = stopTime else { return nil }
+            formattedStop = Formatters.formatDate(stopTime)
+        }
+        guard let description = dictionary[descriptionKey] as? NSString else { return nil }
+        let formattedDescription = Formatters.stripHTML(description)
         
         self.latitude = latitude
         self.longitude = longitude
+        self.postalCode = postalCode
         self.eventURL = eventURL
         self.city = city
         self.state = state
         self.country = country
-        self.startTime = startTime
-        self.stopTime = dictionary[stopTimeKey] as? String
-        self.description = dictionary[descriptionKey] as? String
+        self.startTime = formattedStart
+        self.stopTime = formattedStop
+        self.description = formattedDescription
         self.eventTitle = eventTitle
-        self.venueAddress = venueAddress
+        self.venueAddress = dictionary[venueAddressKey] as? String
         self.venueName = venueName
         self.venueURL = venueURL
         
