@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "trails.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "trailsBirdLaunchScreen.png",
       "scale" : "2x"
     },
     {

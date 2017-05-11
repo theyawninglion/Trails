@@ -10,7 +10,7 @@ import Foundation
 
 class EventController {
     
-    static let baseURL = URL(string: "http://api.eventful.com/json/events/search")
+    static let baseURL = URL(string: "http://api.eventful.com/json/events/search?")
     static let apiKey = "app_key"
     static let securityKey = "zHKbcM58mVrqnf8t"
     static let timeKey = "date"
@@ -22,10 +22,12 @@ class EventController {
     static let distanceKey = "within"
     static let unitKey = "units"
     static let unitType = "miles"
+    static let pageSizeKey = "pagesize"
+    static let pageNumber = "250"
     static func fetchEvent(category: String, userLocation: String, distance: String, completion: @escaping ([Event]) -> Void) {
         
         guard let url = baseURL else { completion([]) ; return }
-        let urlParameters = [ apiKey : securityKey, timeKey: time, imageKey: imageSizes,  categoryKey: category, locationKey: userLocation, distanceKey: distance, unitKey: unitType]
+        let urlParameters = [ apiKey : securityKey, timeKey: time, imageKey: imageSizes,  categoryKey: category, locationKey: userLocation, distanceKey: distance, unitKey: unitType, pageSizeKey: pageNumber]
         
         NetworkController.performRequest(for: url, httpMethod: .Get, urlParameters: urlParameters, body: nil) { (data, error) in
             if let error = error {

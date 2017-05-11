@@ -12,6 +12,7 @@ import MapKit
 class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
     var collectionLabels = [String]()
+    var searchValues = [String]()
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
@@ -253,7 +254,8 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     
     func setupCollectionView() {
         
-        collectionLabels = ["Theater", "Music", "Dance", "Art", "Film", "Festivals", "Family", "Free", "Sports"]
+        collectionLabels = ["Theater", "Music", "Dance", "Arts", "Film", "Festivals", "Family", "Free", "Sports"]
+        searchValues = ["comedy&&performing_arts", "music&&performing_arts", "singles_social", "art&&attractions&&books", "movies_film", "music-festivals", "family_fun_kids", "free", "sports"]
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -295,14 +297,32 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         
         let distance = "\(milesWide + 10)"
         DispatchQueue.main.async {
-            guard let location = LocationManager.shared.zipCode
-                else { return print("no location")}
-            EventController.fetchEvent(category: self.collectionLabels[indexPath.row], userLocation: location, distance: distance, completion: { events in
+            guard let location = LocationManager.shared.cityName
+                else { return self.noLocation()}
+            EventController.fetchEvent(category: self.searchValues[indexPath.row], userLocation: location, distance: distance, completion: { events in
+                
+                if events.count == 0 {
+                    self.noEventsAlert()
+                }
            self.handleMapSearchDelegate?.dropPinZoomIn(events)
             })
-
         }
+    }
+    func noEventsAlert() {
+        let alertController = UIAlertController(title: "No Events", message: "There are no events for that category today in your area.\nTry again tomorrow or search a new event category.", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         
+        alertController.addAction(dismiss)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    func noLocation(){
+        let alertController = UIAlertController(title: "Still finding you", message: "Give it a second, your location is connecting with the events in your area.", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+        
+        alertController.addAction(dismiss)
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
 
