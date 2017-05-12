@@ -44,7 +44,7 @@ class TrailsMainViewController: UIViewController {
         super.viewDidAppear(animated)
         
         addBottomSheetView()
-        //        addPinDetailSheetView()
+       
     }
     
     
@@ -67,6 +67,8 @@ class TrailsMainViewController: UIViewController {
         bottomSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
+    
+    //MARK: -  pin details sliding sheet view
     func addPinDetailSheetView(event: Event) {
         
         let storyboard = UIStoryboard(name: "Detail", bundle: nil)
@@ -111,9 +113,9 @@ class TrailsMainViewController: UIViewController {
         locationManager.requestLocation()
     }
     
-    //MARK: - opens apple maps for selected pin
+    //MARK: - displays pin details when annotation button tapped
     func presentDetailVC() {
-        
+        dismiss(animated: true, completion: nil)
         if let annotation = mapView.selectedAnnotations.first as? MyMKPointAnnotation,
             let event = annotation.event {
             

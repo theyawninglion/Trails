@@ -20,9 +20,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
-                            <tableViewSection id="UIF-8S-GDM">
+                            <tableViewSection id="vsB-od-kiB">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="45" id="QGq-yu-bqh">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="45" id="QGq-yu-bqh" customClass="EventTitleTableViewCell" customModule="Trails" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QGq-yu-bqh" id="lFX-fT-xO7">
@@ -38,7 +38,7 @@
                                                     </constraints>
                                                     <state key="normal" image="black-circle-close-button-png-5"/>
                                                     <connections>
-                                                        <action selector="closeButtonTapped:" destination="1Rf-8q-pq5" eventType="touchUpInside" id="3vg-OK-x9N"/>
+                                                        <action selector="closeButtonTapped:" destination="1Rf-8q-pq5" eventType="touchUpInside" id="z1p-Wb-taD"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EventTitle " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Avn-3o-txq">
@@ -60,7 +60,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="123" id="SqA-nJ-s1g">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="123" id="SqA-nJ-s1g" customClass="AddressTableViewCell" customModule="Trails" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="45" width="375" height="123"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SqA-nJ-s1g" id="JyM-eM-CBm">
@@ -111,7 +111,7 @@
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="goButtonTapped:" destination="1Rf-8q-pq5" eventType="touchUpInside" id="CjP-jb-qEE"/>
+                                                        <action selector="goButtonTapped:" destination="1Rf-8q-pq5" eventType="touchUpInside" id="QxG-Wz-SlZ"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -126,14 +126,14 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="482" id="9hE-QC-xom">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="482" id="9hE-QC-xom" customClass="DescriptionTableViewCell" customModule="Trails" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="168" width="375" height="482"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9hE-QC-xom" id="oN9-pp-G5s">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="482"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XvV-u7-qF6">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XvV-u7-qF6">
                                                     <rect key="frame" x="5" y="8" width="362" height="465.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -158,17 +158,17 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="addressLabel" destination="xe4-7e-6F9" id="Imx-ZA-56o"/>
-                        <outlet property="cityStateLabel" destination="icx-eR-KUz" id="8Pd-aw-uTE"/>
-                        <outlet property="descriptionTextView" destination="XvV-u7-qF6" id="g37-v1-5IF"/>
-                        <outlet property="eventTitleLabel" destination="Avn-3o-txq" id="dOz-eA-RdD"/>
+                        <outlet property="addressLabel" destination="xe4-7e-6F9" id="PMi-Gd-ltK"/>
+                        <outlet property="cityStateLabel" destination="icx-eR-KUz" id="dgZ-va-Fun"/>
+                        <outlet property="descriptionTextView" destination="XvV-u7-qF6" id="IUR-Qw-LpC"/>
+                        <outlet property="eventTitleLabel" destination="Avn-3o-txq" id="4tB-Tj-kHo"/>
                         <outlet property="goButton" destination="nb7-vP-Oi8" id="ItI-uj-Akj"/>
-                        <outlet property="startTextView" destination="FCt-Mp-QmU" id="iwF-nS-eIH"/>
+                        <outlet property="startTextView" destination="FCt-Mp-QmU" id="VnJ-EJ-7wp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wD9-Yw-28B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6268" y="840.62968515742136"/>
+            <point key="canvasLocation" x="6697" y="775"/>
         </scene>
     </scenes>
     <resources>

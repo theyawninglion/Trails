@@ -7,26 +7,24 @@
 //
 
 import UIKit
+import MapKit
 
 class DescriptionTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var startTimeLabel: UILabel!
-    @IBOutlet weak var descriptionTextView: UITextView!
-    
-    var event: Event?{
-        didSet{
-            updateViews()
-        }
-    }
-    func updateViews(){
-        guard let event = event
-            else { return }
-        var endTime = ""
+   
+//    @IBOutlet weak var descriptionTextView: UITextView!
+//    
+//    var event: Event?
+//    var placemark: MKPlacemark?
+//    
+//    func updateViews() {
+//        
+//        if self.placemark != nil {
+//            descriptionTextView.text = ""
+//        } else {
+//            guard let event = event else { return }
+//            descriptionTextView.text = "At: \(event.venueName)\n\(event.description ?? "")\n\(event.eventURL)\n\(event.venueURL)"
+//        }
+//    }
 
-        if event.stopTime != nil {
-            endTime = "Ends:\(event.stopTime ?? "")"
-        }
-        startTimeLabel.text = "Starts:\(event.startTime) \(endTime)"
-        descriptionTextView.text = event.description
-    }
 }

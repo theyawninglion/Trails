@@ -20,7 +20,6 @@
 		5AAB2B6F1E956DB400C20044 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAB2B6E1E956DB400C20044 /* DateHelper.swift */; };
 		5AAB2B711E95814700C20044 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAB2B701E95814700C20044 /* EventController.swift */; };
 		5AAD16871EB3C04E00429256 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AAD16861EB3C04E00429256 /* Detail.storyboard */; };
-		5AAD168D1EB7D1B700429256 /* MainCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAD168C1EB7D1B700429256 /* MainCollectionTableViewCell.swift */; };
 		5AAD16911EB7DFDD00429256 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AAD16901EB7DFDD00429256 /* Search.storyboard */; };
 		5AAD16931EB91A1800429256 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAD16921EB91A1800429256 /* LocationManager.swift */; };
 		5AB944411EBCE5A300AE132E /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB944401EBCE5A300AE132E /* DetailTableViewController.swift */; };
@@ -30,6 +29,7 @@
 		5AB9447A1EC2992A00AE132E /* DismissKeyBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB944791EC2992A00AE132E /* DismissKeyBoardController.swift */; };
 		5AB9447C1EC37CD000AE132E /* BirdIcon in Resources */ = {isa = PBXBuildFile; fileRef = 5AB9447B1EC37CD000AE132E /* BirdIcon */; };
 		5AB9447E1EC50FCB00AE132E /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9447D1EC50FCB00AE132E /* Formatters.swift */; };
+		5AB944801EC52F0900AE132E /* EventTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9447F1EC52F0900AE132E /* EventTitleTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +48,6 @@
 		5AAB2B6E1E956DB400C20044 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		5AAB2B701E95814700C20044 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		5AAD16861EB3C04E00429256 /* Detail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
-		5AAD168C1EB7D1B700429256 /* MainCollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		5AAD16901EB7DFDD00429256 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		5AAD16921EB91A1800429256 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5AB944401EBCE5A300AE132E /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +57,7 @@
 		5AB944791EC2992A00AE132E /* DismissKeyBoardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissKeyBoardController.swift; sourceTree = "<group>"; };
 		5AB9447B1EC37CD000AE132E /* BirdIcon */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BirdIcon; path = ../../../../Documents/BirdIcon; sourceTree = "<group>"; };
 		5AB9447D1EC50FCB00AE132E /* Formatters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
+		5AB9447F1EC52F0900AE132E /* EventTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTitleTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,7 +160,7 @@
 		5A5D09B61E81B0CA00DC695F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5AAD168C1EB7D1B700429256 /* MainCollectionTableViewCell.swift */,
+				5AB9447F1EC52F0900AE132E /* EventTitleTableViewCell.swift */,
 				5AB944421EBCE86300AE132E /* AddressTableViewCell.swift */,
 				5AB944441EBCEA5700AE132E /* DescriptionTableViewCell.swift */,
 			);
@@ -267,12 +267,12 @@
 			files = (
 				5AB944411EBCE5A300AE132E /* DetailTableViewController.swift in Sources */,
 				5AAB2B6D1E956C5300C20044 /* ImageController.swift in Sources */,
+				5AB944801EC52F0900AE132E /* EventTitleTableViewCell.swift in Sources */,
 				5AAB2B6F1E956DB400C20044 /* DateHelper.swift in Sources */,
 				5AB9447E1EC50FCB00AE132E /* Formatters.swift in Sources */,
 				5AB9447A1EC2992A00AE132E /* DismissKeyBoardController.swift in Sources */,
 				5AAB2B711E95814700C20044 /* EventController.swift in Sources */,
 				5AAD16931EB91A1800429256 /* LocationManager.swift in Sources */,
-				5AAD168D1EB7D1B700429256 /* MainCollectionTableViewCell.swift in Sources */,
 				5A5D09AF1E80D46400DC695F /* TrailsMainViewController.swift in Sources */,
 				5A5D09931E80BDB600DC695F /* AppDelegate.swift in Sources */,
 				5AAB2B691E956C1C00C20044 /* NetworkController.swift in Sources */,

@@ -15,7 +15,6 @@ class DetailTableViewController: UITableViewController, UIGestureRecognizerDeleg
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var cityStateLabel: UILabel!
-    
     @IBOutlet weak var eventTitleLabel: UILabel!
     @IBOutlet weak var startTextView: UITextView!
     @IBOutlet weak var descriptionTextView: UITextView!
@@ -106,6 +105,9 @@ class DetailTableViewController: UITableViewController, UIGestureRecognizerDeleg
     }
     
     //MARK: - tableview datasource
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height: CGFloat = UITableViewAutomaticDimension

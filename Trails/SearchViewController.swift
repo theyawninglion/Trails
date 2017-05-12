@@ -40,9 +40,8 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         gesture()
         setupTableView()
         setupCollectionView()
-//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyBoard))
-//        view.addGestureRecognizer(tap)
-
+        view.layer.cornerRadius = 10
+        view.clipsToBounds = true
     }
     
     func dismissKeyBoard() {
@@ -254,14 +253,13 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     
     func setupCollectionView() {
         
-        collectionLabels = ["Theater", "Music", "Dance", "Arts", "Film", "Festivals", "Family", "Free", "Sports"]
-        searchValues = ["comedy&&performing_arts", "music&&performing_arts", "singles_social", "art&&attractions&&books", "movies_film", "music-festivals", "family_fun_kids", "free", "sports"]
+        collectionLabels = ["Theater", "Music", "Dance", "Arts", "Film", "Festivals", "Family", "Free", "Sports", "Outdoors"]
+        searchValues = ["comedy&&performing_arts", "music&&performing_arts", "singles_social", "art&&attractions&&books", "movies_film", "music-festivals", "family_fun_kids", "free", "sports", "outdoors_recreation"]
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionLabels.count
@@ -272,7 +270,8 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         
         let button = cell.viewWithTag(1) as? UILabel
         button?.text = collectionLabels[indexPath.row]
-        
+        cell.layer.cornerRadius = 10
+        cell.clipsToBounds = true
         return cell
     }
     
