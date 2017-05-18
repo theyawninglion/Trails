@@ -142,7 +142,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     //MARK: - SearchController
    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let width = self.view.frame.width
         let height = self.view.frame.height
         searchBar.showsCancelButton = true
@@ -150,6 +150,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
             self.view.frame = CGRect(x: 0, y: self.fullView, width: width, height: height)
         })
         hasKeyBoard = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -164,7 +165,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         guard let mapViews = mapView,
             let searchBarText = searchBar.text
             else { return }
@@ -178,11 +179,13 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
             self.matchingItems = response.mapItems
             self.tableView.reloadData()
         }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
     }
     
     func parseAddress(selectedItem: MKPlacemark) -> String {
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
         let comma = (selectedItem.subThoroughfare != nil || selectedItem.thoroughfare != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
         let secondSpace = (selectedItem.subAdministrativeArea != nil && selectedItem.administrativeArea != nil) ? " " : ""
@@ -195,6 +198,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
                                  secondSpace,
                                  selectedItem.administrativeArea ?? ""
         )
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         return addressLine
     }
     
@@ -277,6 +281,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+    
         let width = self.view.frame.width
         let height = self.view.frame.height
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: {
@@ -296,6 +301,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         
         let distance = "\(milesWide + 10)"
         DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             guard let location = LocationManager.shared.cityName
                 else { return self.noLocation()}
             EventController.fetchEvent(category: self.searchValues[indexPath.row], userLocation: location, distance: distance, completion: { events in
@@ -306,15 +312,18 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate, UISea
            self.handleMapSearchDelegate?.dropPinZoomIn(events)
             })
         }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
+    
     func noEventsAlert() {
-        let alertController = UIAlertController(title: "No Events", message: "There are no events for that category today in your area.\nTry again tomorrow or search a new event category.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "No Events", message: "There are no events for that category today in your area.\nTry expaning or map, searching again tomorrow or search a new event category.", preferredStyle: .alert)
         let dismiss = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         
         alertController.addAction(dismiss)
         
         present(alertController, animated: true, completion: nil)
     }
+    
     func noLocation(){
         let alertController = UIAlertController(title: "Still finding you", message: "Give it a second, your location is connecting with the events in your area.", preferredStyle: .alert)
         let dismiss = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)

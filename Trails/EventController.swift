@@ -24,6 +24,7 @@ class EventController {
     static let unitType = "miles"
     static let pageSizeKey = "pagesize"
     static let pageNumber = "250"
+    
     static func fetchEvent(category: String, userLocation: String, distance: String, completion: @escaping ([Event]) -> Void) {
         
         guard let url = baseURL else { completion([]) ; return }

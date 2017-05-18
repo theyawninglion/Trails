@@ -35,7 +35,6 @@ class TrailsMainViewController: UIViewController {
         super.viewDidLoad()
         
         setupLocationManager()
-        mapView.center.y = view.center.y + 500
 
     }
     
@@ -86,6 +85,7 @@ class TrailsMainViewController: UIViewController {
         let width = view.frame.width
         pinDetailSheetVC.view.frame = CGRect(x: 0, y: self.view.frame.maxY - 350, width: width, height: height)
     }
+    
     func addApplePinDetailSheetView(placemark: MKPlacemark) {
         
         let storyboard = UIStoryboard(name: "Detail", bundle: nil)
@@ -111,6 +111,11 @@ class TrailsMainViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        guard let centerCoordinate = locationManager.location?.coordinate else { return }
+        let region = MKCoordinateRegionMake(centerCoordinate, span)
+        mapView.setRegion(region, animated: true)
+
     }
     
     //MARK: - displays pin details when annotation button tapped
@@ -132,6 +137,7 @@ class TrailsMainViewController: UIViewController {
 
 //MARK: - extention for handleMapSearch protocol
 extension TrailsMainViewController: HandleMapSearch {
+    
     func dropPinZoomIn(_ placemark: MKPlacemark) {
         
         LocationManager.shared.selectedPin = placemark
@@ -151,6 +157,7 @@ extension TrailsMainViewController: HandleMapSearch {
     
     func dropPinZoomIn(_ events: [Event]) {
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         mapView.removeAnnotations(mapView.annotations)
         for event in events {
             guard let longitude = Double(event.longitude),
@@ -168,6 +175,7 @@ extension TrailsMainViewController: HandleMapSearch {
             mapView.addAnnotation(annotation)
         }
         mapView.showAnnotations(mapView.annotations, animated: true)
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
 
@@ -178,6 +186,7 @@ extension TrailsMainViewController: MKMapViewDelegate {
         if annotation is MKUserLocation {
             return nil
         }
+        
         let reuseID = "pin"
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
         if pinView == nil {
@@ -197,6 +206,9 @@ extension TrailsMainViewController: MKMapViewDelegate {
         
         button.addTarget(self, action: #selector(TrailsMainViewController.presentDetailVC), for: .touchUpInside)
         pinView?.leftCalloutAccessoryView = button
+        
+        pinView?.animatesDrop = true
+        pinView?.layer.shadowOpacity = 0.0
         
         return pinView
     }

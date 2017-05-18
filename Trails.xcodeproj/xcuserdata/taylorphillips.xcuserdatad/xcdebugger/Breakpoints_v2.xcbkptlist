@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trails/EventController.swift"
-            timestampString = "516216694.230237"
+            timestampString = "516765334.893696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "fetchEvent(category:userLocation:distance:completion:)"
             landmarkType = "7">
             <Locations>
@@ -122,27 +122,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trails/TrailsMainViewController.swift"
-            timestampString = "516238296.61651"
+            timestampString = "516765334.893696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "addPinDetailSheetView(event:)"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "dropPinZoomIn(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trails/SearchViewController.swift"
-            timestampString = "516242025.848004"
+            timestampString = "516766852.646552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -153,13 +153,77 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Trails/Event.swift"
-            timestampString = "516232620.403223"
+            filePath = "Trails/SearchViewController.swift"
+            timestampString = "516766861.564229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "init(dictionary:)"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trails.SearchViewController.collectionView (__ObjC.UICollectionView, didSelectItemAt : Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Trails"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/taylorphillips/Desktop/trails/Trails/Trails/SearchViewController.swift"
+                  timestampString = "516766872.497316"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "303"
+                  endingLineNumber = "303"
+                  offsetFromSymbolStart = "2260">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Trails.SearchViewController.(collectionView (__ObjC.UICollectionView, didSelectItemAt : Foundation.IndexPath) -&gt; ()).(closure #2)"
+                  moduleName = "Trails"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/taylorphillips/Desktop/trails/Trails/Trails/SearchViewController.swift"
+                  timestampString = "516766872.498718"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "304"
+                  endingLineNumber = "304"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trails/TrailsMainViewController.swift"
+            timestampString = "516766891.328208"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "dropPinZoomIn(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trails/TrailsMainViewController.swift"
+            timestampString = "516766893.541283"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "dropPinZoomIn(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
